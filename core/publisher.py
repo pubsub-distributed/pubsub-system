@@ -4,6 +4,7 @@ class Publisher:
         self.broker = broker
         self.gossip = gossip
 
-    async def publish(self, topic, message):
+    async def publish(self, peer, topic, message):
         msg = {"topic": topic, "content": message}
-        await self.gossip.broadcast(msg)
+        print(f"[{self.node_id}] Publisher: publishing to {peer} topic {topic}")
+        await self.gossip.send(peer, msg)

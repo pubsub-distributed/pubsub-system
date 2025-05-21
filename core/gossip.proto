@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+service GossipService {
+  rpc RegisterPublicKey (PublicKeyMessage) returns (Ack);
+  rpc SendMessage (GossipMessage) returns (Ack);
+}
+
+message PublicKeyMessage {
+  string sender = 1;
+  bytes public_key = 2;
+}
+
+message GossipMessage {
+  string topic = 1;
+  string content = 2;
+  string sender = 3;
+}
+
+message Ack {
+  bool success = 1;
+}
