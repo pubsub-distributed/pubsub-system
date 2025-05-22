@@ -22,88 +22,89 @@ A scalable, secure, and fault-tolerant **Publish-Subscribe (Pub-Sub) system** im
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repo-url>
+git clone git@github.com:pubsub-distributed/pubsub-system.git
 cd pubsub-system
 ```
 
-### **2. Clone the Repository**
-
-```
-git clone <your-repo-url>
-cd pubsub-system
-```
-
-### **3. Build and Launch Nodes**
+### **2. Build and Launch Nodes**
 
 ```
 docker-compose up --build
 ```
 
-> This starts nodes (A, B, C, D) with REST APIs on ports 8000, 8001, 8002, 8003.
-> 
+This starts multiple nodes (A, B, C, D by default) with REST APIs on ports 8000, 8001, 8002, 8003.
 
----
+### **3. Publish and Subscribe (via HTTP API)**
 
-## **Usage**
-
-### **Publish a Message**
+**Subscribe node to a topic:**
 
 ```
 curl -X POST -H "Content-Type: application/json" \
-  -d '{"topic": "chat", "message": "hello world"}' \
+  -d '{"topic": "news"}' \
+  http://localhost:8000/subscribe
+```
+
+**Publish a message:**
+
+```
+curl -X POST -H "Content-Type: application/json" \
+  -d '{"topic": "news", "message": "Hello from node A!"}' \
   http://localhost:8000/publish
 ```
 
-### **Subscribe a Node to a Topic**
+**Check node subscription status:**
 
 ```
-curl -X POST -H "Content-Type: application/json" \
-  -d '{"topic": "news"}' \
-  http://localhost:8001/subscribe
+curl http://localhost:8000/status
 ```
 
-### **Unsubscribe from a Topic**
+> Change the port to 8001, 8002, etc., to interact with other nodes.
+> 
+
+### **4. Stopping the System**
 
 ```
-curl -X POST -H "Content-Type: application/json" \
-  -d '{"topic": "news"}' \
-  http://localhost:8001/unsubscribe
+docker-compose down
 ```
 
-### **Query Node Status (subscriptions, etc.)**
+## **System Architecture**
 
-```
-curl http://localhost:8002/status
-```
+- **Node**: Each node runs a gRPC server for inter-node gossip messaging and an HTTP API server for external control.
+- **GossipAgent**: Handles randomized, peer-to-peer gossip-style dissemination of encrypted messages.
+- **Broker**: Routes published messages to subscribers.
+- **Security**: Asymmetric (public/private key) cryptography secures inter-node communication.
 
----
+## **HTTP API Endpoints**
 
-## **Monitor All Subscribers by Topic**
+| **Endpoint** | **Method** | **Description** | **Example Payload** |
+| --- | --- | --- | --- |
+| /publish | POST | Publish a message to a topic | { "topic": "news", "message": "..." } |
+| /subscribe | POST | Subscribe the node to a topic | { "topic": "news" } |
+| /unsubscribe | POST | Unsubscribe the node from a topic | { "topic": "news" } |
+| /status | GET | Query current subscriptions/status |  |
 
-You can see which nodes are subscribed to which topics by running:
+## **Configuration**
 
-```
-python show_subscribers.py
-```
+Edit docker-compose.yml to:
 
-**Example output:**
+- Set node IDs (NODE_ID)
+- Set all node peers (ALL_PEERS)
+- Expose different HTTP API ports
 
-```
-Topic -> Nodes
-chat: ['A', 'B', 'C', 'D']
-news: ['B', 'C']
-```
+## **Code Overview**
 
----
+- core/node.py – Node logic, HTTP API, subscription management
+- core/gossip.py – Gossip protocol logic for message dissemination
+- core/grpc_server.py – gRPC server for inter-node comms
+- core/publisher.py, core/subscriber.py – Pub-Sub business logic
+- security/crypto_utils.py – Cryptography helpers
 
-## **File Structure**
+## **Extending & Testing**
 
-- core/ — Core system modules (node logic, gossip, publisher, subscriber, etc.)
-- Dockerfile, docker-compose.yml — Containerization and orchestration
-- show_subscribers.py — Utility: Map topics to subscribing nodes
-
----
+- Easily add more nodes by editing docker-compose.yml.
+- Use curl or any HTTP client to interact with nodes.
+- For testing, see test/ and sample scripts.
 
 ## **License**
 
-MIT License (or specify your license here)
+MIT License (add your license information here).
