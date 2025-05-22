@@ -28,7 +28,7 @@ class GossipAgent:
 
     async def send(self, peer_id, message):
         peer_service = f"node_{peer_id.lower()}"
-        print(f"[{self.node_id}] Preparing to send to {peer_id} at {peer_service}:5000")
+        # print(f"[{self.node_id}] Preparing to send to {peer_id} at {peer_service}:5000")
         async with grpc.aio.insecure_channel(f"{peer_service}:5000") as channel:
             stub = gossip_pb2_grpc.GossipServiceStub(channel)
             grpc_message = gossip_pb2.GossipMessage(
@@ -38,7 +38,7 @@ class GossipAgent:
             )
             try:
                 response = await stub.SendMessage(grpc_message)
-                if response.success:
-                    print(f"[{self.node_id}] sent message to {peer_id}")
+                # if response.success:
+                #     print(f"[{self.node_id}] sent message to {peer_id}")
             except Exception as e:
                 print(f"[{self.node_id}] failed to send to {peer_id}: {e}")

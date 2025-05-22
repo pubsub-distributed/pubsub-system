@@ -12,7 +12,7 @@ class GossipServiceServicer(gossip_pb2_grpc.GossipServiceServicer):
         return gossip_pb2.Ack(success=True)
     
     async def SendMessage(self, request, context):
-        print(f"[{self.node.node_id}] SendMessage handler triggered!") 
+        # print(f"[{self.node.node_id}] SendMessage handler triggered!") 
         msg = {"topic": request.topic, "content": request.content, "sender": request.sender}
         # print(f"[{self.node.node_id}] received: {msg}")
         self.node.receive(msg)
@@ -22,7 +22,7 @@ async def serve(node, port):
     server = grpc.aio.server()
     gossip_pb2_grpc.add_GossipServiceServicer_to_server(GossipServiceServicer(node), server)
     server.add_insecure_port(f"[::]:{port}")
-    print(f"[{node.node_id}] gRPC server starting on [::]:{port}")
+    # print(f"[{node.node_id}] gRPC server starting on [::]:{port}")
     await server.start()
-    print(f"[{node.node_id}] gRPC server started!")
+    # print(f"[{node.node_id}] gRPC server started!")
     await server.wait_for_termination()

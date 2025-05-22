@@ -46,6 +46,9 @@ class Node:
         if not self.is_subscriber:
             raise Exception(f"[{self.node_id}] is not a subscriber.")
         self.subscriber.subscribe(topic, self.broker)
+    
+    def get_subscribe(self):
+        return list(self.subscriber.topics)
 
     def unsubscribe(self, topic):
         if self.is_subscriber:
@@ -97,8 +100,9 @@ def create_app(node: Node):
     async def status_api(request):
         return web.json_response({
             "node_id": node.node_id,
-            "peers": node.peers,
-            "public_keys": list(node.peer_public_keys.keys())
+            "subscriptions": node.get_subscribe(),
+            # "peers": node.peers,
+            # "public_keys": list(node.peer_public_keys.keys())
         })
 
     app = web.Application()
@@ -112,6 +116,10 @@ async def start_http_server(node, port=8000):
     site = web.TCPSite(runner, "0.0.0.0", port)
     await site.start()
     print(f"[{node.node_id}] HTTP API server started on port {port}")
+
+# async def status_api(request):
+#     node = request.app['node']
+#     return web.json_response({"node_id": node.node_id, "subscriptions": node.get_subscriptions()})
 
 async def main():
     import os

@@ -3,3 +3,4 @@ pycryptodome
 grpcio
 grpcio-tools
 aiohttp
+requests
