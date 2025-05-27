@@ -81,16 +81,13 @@ curl http://localhost:8000/status
 python scripts/show_subscribers.py
 python scripts/subscribe_topic.py <node_letter> <topic>
 python scripts/unsubscribe_topic.py <node_letter> <topic>
-python scripts/send_test_messages.py <sender> <topic> <message_count>
+python scripts/send_test_messages.py <sender> <topic> <message> <count>
 python scripts/analyze_latency.py
 ```
 
-> These scripts require requests and (for analyze_latency) re/os (already in requirements.txt).
-> 
-
 ---
 
-### **Example Output**
+**Example Output**
 
 ```
 python scripts/show_subscribers.py
@@ -103,7 +100,7 @@ sports: ['B', 'D']
 
 ---
 
-## **HTTP API Endpoints**
+## **5. **HTTP API Endpoints**
 
 | **Endpoint** | **Method** | **Description** | **Example Payload** |
 | --- | --- | --- | --- |
@@ -114,14 +111,14 @@ sports: ['B', 'D']
 
 ---
 
-## **Configuration**
+## **6. **Configuration**
 
 - Edit docker-compose.yml to set node IDs and ALL_PEERS.
 - Each node exposes its API at a different host port (8000, 8001, …).
 
 ---
 
-## **Code Overview**
+## **7. **Code Overview**
 
 - core/node.py – Node logic, HTTP API, subscription management
 - core/gossip.py – Gossip protocol logic
@@ -135,7 +132,7 @@ sports: ['B', 'D']
 
 ---
 
-## **Extending & Testing**
+## **8. **Extending & Testing**
 
 - Add more nodes by editing docker-compose.yml.
 - Use any HTTP client to interact with the system.
@@ -143,6 +140,6 @@ sports: ['B', 'D']
 
 ---
 
-## **License**
+## **9. **License**
 
 MIT License
