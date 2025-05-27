@@ -1,5 +1,6 @@
 import asyncio
 import json
+import time
 from aiohttp import web
 from core.broker import Broker
 from core.gossip import GossipAgent
@@ -35,11 +36,17 @@ class Node:
     async def publish(self, topic, message):
         if not self.is_publisher:
             raise Exception(f"[{self.node_id}] is not a publisher.")
+        msg_payload = {
+            "sender": self.node_id,
+            "message": message,
+            "timestamp": time.time(),
+        }
         for peer in self.peers:
             target_pubkey = self.peer_public_keys[peer]
-            encrypted_payload = hybrid_encrypt(target_pubkey, message)
+            encrypted_payload = hybrid_encrypt(target_pubkey, json.dumps(msg_payload))
             encrypted_msg = json.dumps(encrypted_payload)
-            print(f"[{self.node_id}] publishing to peer {peer}")
+            if peer == self.peers[0]:
+                print(f"[{self.node_id}] Publishing | Topic: {topic}")
             await self.publisher.publish(peer, topic, encrypted_msg)
 
     def subscribe(self, topic):
@@ -59,9 +66,11 @@ class Node:
         if not self.is_subscriber:
             return
         try:
-            payload = json.loads(msg['content'])
-            decrypted = hybrid_decrypt(self.private_key, payload)
-            filtered = {"topic": msg["topic"], "content": decrypted}
+            encrypted_payload = json.loads(msg['content'])
+            decrypted_payload = hybrid_decrypt(self.private_key, encrypted_payload)
+            msg_payload = json.loads(decrypted_payload)
+            
+            filtered = {"topic": msg["topic"], "content": msg_payload}
             self.subscriber.receive(filtered)
         except Exception as e:
             print(f"[{self.node_id}] Failed to decrypt message: {e}")
@@ -98,9 +107,18 @@ def create_app(node: Node):
 
     @routes.get('/status')
     async def status_api(request):
+        # topic_map = node.broker.get_topic_map()
+        print("Topic -> Nodes")
+        # for topic, nodes in topic_map.items():
+        #     print(f"{topic}: {nodes}")
+        nodes = node.node_id
+        subscriptions = node.get_subscribe()
+        for topic in subscriptions:
+            print(f"{topic}: {nodes}")
         return web.json_response({
             "node_id": node.node_id,
             "subscriptions": node.get_subscribe(),
+            # "topic_map": topic_map
             # "peers": node.peers,
             # "public_keys": list(node.peer_public_keys.keys())
         })

@@ -3,30 +3,58 @@ services:
     build: .
     environment:
       - NODE_ID=A
-      - ALL_PEERS=A,B,C,D
+      - ALL_PEERS=A,B,C,D,E,F
     ports:
       - "8000:8000"
+    volumes:
+      - ./output:/app/output
 
   node_b:
     build: .
     environment:
       - NODE_ID=B
-      - ALL_PEERS=A,B,C,D
+      - ALL_PEERS=A,B,C,D,E,F
     ports:
       - "8001:8000"
+    volumes:
+      - ./output:/app/output
 
   node_c:
     build: .
     environment:
       - NODE_ID=C
-      - ALL_PEERS=A,B,C,D
+      - ALL_PEERS=A,B,C,D,E,F
     ports:
       - "8002:8000"
+    volumes:
+      - ./output:/app/output
 
   node_d:
     build: .
     environment:
       - NODE_ID=D
-      - ALL_PEERS=A,B,C,D
+      - ALL_PEERS=A,B,C,D,E,F
     ports:
       - "8003:8000"
+    volumes:
+      - ./output:/app/output
+
+  node_e:
+    build: .
+    environment:
+      - NODE_ID=E
+      - ALL_PEERS=A,B,C,D,E,F
+    ports:
+      - "8004:8000"
+    volumes:
+      - ./output:/app/output
+
+  node_f:
+    build: .
+    environment:
+      - NODE_ID=F
+      - ALL_PEERS=A,B,C,D,E,F
+    ports:
+      - "8005:8000"
+    volumes:
+      - ./output:/app/output

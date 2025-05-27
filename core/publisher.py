@@ -6,5 +6,5 @@ class Publisher:
 
     async def publish(self, peer, topic, message):
         msg = {"topic": topic, "content": message}
-        print(f"[{self.node_id}] Publisher: publishing to {peer} topic {topic}")
+        # print(f"[{self.node_id}] Publisher: publishing to {peer} topic {topic}")
         await self.gossip.send(peer, msg)

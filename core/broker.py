@@ -12,3 +12,6 @@ class Broker:
 
     def get_subscribers(self, topic):
         return list(self.subscriptions[topic])
+    
+    def get_topic_map(self):
+        return {topic: sorted(list(nodes)) for topic, nodes in self.subscriptions.items()}

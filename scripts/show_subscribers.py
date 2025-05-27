@@ -1,7 +1,7 @@
 import requests
 
 # List all your node API ports here
-NODE_PORTS = [8000, 8001, 8002, 8003]
+NODE_PORTS = [8000, 8001, 8002, 8003, 8004, 8005]
 
 # Map: topic -> [list of node_ids]
 topic_to_nodes = {}
