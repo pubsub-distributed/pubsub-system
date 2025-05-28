@@ -63,7 +63,7 @@ curl http://localhost:8000/status
 > Change the port to 8001, 8002, etc., to interact with other nodes.
 > 
 
-## **4. Testing and Automation Scripts**
+### **4. Testing and Automation Scripts**
 
 **All scripts are in the scripts/ directory for convenience!**
 
@@ -100,7 +100,7 @@ sports: ['B', 'D']
 
 ---
 
-## **5. HTTP API Endpoints**
+### **5. HTTP API Endpoints**
 
 | **Endpoint** | **Method** | **Description** | **Example Payload** |
 | --- | --- | --- | --- |
@@ -111,14 +111,14 @@ sports: ['B', 'D']
 
 ---
 
-## **6. Configuration**
+### **6. Configuration**
 
 - Edit docker-compose.yml to set node IDs and ALL_PEERS.
 - Each node exposes its API at a different host port (8000, 8001, …).
 
 ---
 
-## **7. Code Overview**
+### **7. Code Overview**
 
 - core/node.py – Node logic, HTTP API, subscription management
 - core/gossip.py – Gossip protocol logic
@@ -132,7 +132,7 @@ sports: ['B', 'D']
 
 ---
 
-## **8. Extending & Testing**
+### **8. Extending & Testing**
 
 - Add more nodes by editing docker-compose.yml.
 - Use any HTTP client to interact with the system.
@@ -140,6 +140,6 @@ sports: ['B', 'D']
 
 ---
 
-## **9. License**
+### **9. License**
 
 MIT License
