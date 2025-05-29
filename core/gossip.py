@@ -1,3 +1,4 @@
+# gossip.py
 import random
 import asyncio
 import grpc.aio
@@ -9,19 +10,27 @@ class GossipAgent:
         self.node_id = node_id
         self.peers = peers
         self.node = node  # pass node for callback
+        self.seen_msgs = set()
+        self.msg_store = {}
+        self.peer_unavailable = {peer: False for peer in peers}
 
-    async def send_public_key(self, peer_id, public_key_bytes):
-        peer_service = f"node_{peer_id.lower()}"
-        async with grpc.aio.insecure_channel(f"{peer_service}:5000") as channel:
-            stub = gossip_pb2_grpc.GossipServiceStub(channel)
-            msg = gossip_pb2.PublicKeyMessage(sender=self.node_id, public_key=public_key_bytes)
-            try:
-                await stub.RegisterPublicKey(msg)
-                print(f"[{self.node_id}] Sent public key to {peer_id}")
-            except Exception as e:
-                print(f"[{self.node_id}] Failed to send public key to {peer_id}: {e}")
+    # async def send_public_key(self, peer_id, public_key_bytes):
+    #     peer_service = f"node_{peer_id.lower()}"
+    #     async with grpc.aio.insecure_channel(f"{peer_service}:5000") as channel:
+    #         stub = gossip_pb2_grpc.GossipServiceStub(channel)
+    #         msg = gossip_pb2.PublicKeyMessage(sender=self.node_id, public_key=public_key_bytes)
+    #         try:
+    #             await stub.RegisterPublicKey(msg)
+    #             print(f"[{self.node_id}] Sent public key to {peer_id}")
+    #         except Exception as e:
+    #             print(f"[{self.node_id}] Failed to send public key to {peer_id}: {e}")
 
     async def broadcast(self, message, fanout=3):
+        msg_id = message['msg_id']
+        if msg_id in self.seen_msgs:
+            return
+        self.seen_msgs.add(msg_id)
+        self.msg_store[msg_id] = message
         selected = random.sample(self.peers, min(fanout, len(self.peers)))
         for peer_id in selected:
             await self.send(peer_id, message)
@@ -34,11 +43,55 @@ class GossipAgent:
             grpc_message = gossip_pb2.GossipMessage(
                 topic=message['topic'],
                 content=message['content'],
-                sender=self.node_id
+                sender=message['sender'],
+                timestamp=message['timestamp'],
+                msg_id=message['msg_id']
             )
             try:
-                response = await stub.SendMessage(grpc_message)
+                await stub.SendMessage(grpc_message)
+                # response = await stub.SendMessage(grpc_message)
                 # if response.success:
                 #     print(f"[{self.node_id}] sent message to {peer_id}")
-            except Exception as e:
-                print(f"[{self.node_id}] failed to send to {peer_id}: {e}")
+                if self.peer_unavailable[peer_id]:
+                    print(f"[{self.node_id}] Peer {peer_id} back online.")
+                self.peer_unavailable[peer_id] = False
+            except grpc.aio.AioRpcError as e:
+                if e.code() == grpc.StatusCode.UNAVAILABLE:
+                    if not self.peer_unavailable[peer_id]:
+                        print(f"[{self.node_id}] Peer {peer_id} unavailable (probably stopped).")
+                        self.peer_unavailable[peer_id] = True
+                else:
+                    print(f"[{self.node_id}] gRPC error with {peer_id}: {e}")
+    
+    async def push_seen_msgs(self, interval=5):
+        while True:
+            tasks = [self.send_seen_msgs(peer_id) for peer_id in self.peers]
+            await asyncio.gather(*tasks)
+            await asyncio.sleep(interval)
+
+    async def send_seen_msgs(self, peer_id):
+        peer_service = f"node_{peer_id.lower()}"
+        async with grpc.aio.insecure_channel(f"{peer_service}:5000") as channel:
+            stub = gossip_pb2_grpc.GossipServiceStub(channel)
+            grpc_message = gossip_pb2.SeenMsgs(
+                sender=self.node_id,
+                msg_ids=list(self.seen_msgs)
+            )
+            try:
+                await stub.SyncSeenMsgs(grpc_message)
+                if self.peer_unavailable[peer_id]:
+                    print(f"[{self.node_id}] Peer {peer_id} back online.")
+                self.peer_unavailable[peer_id] = False
+            except grpc.aio.AioRpcError as e:
+                if e.code() == grpc.StatusCode.UNAVAILABLE:
+                    if not self.peer_unavailable[peer_id]:
+                        print(f"[{self.node_id}] Peer {peer_id} unavailable (probably stopped).")
+                        self.peer_unavailable[peer_id] = True
+                else:
+                    print(f"[{self.node_id}] gRPC error with {peer_id}: {e}")
+
+    async def on_receive_seen_msgs(self, peer_id, their_msg_ids):
+        their_set = set(their_msg_ids)
+        missing = self.seen_msgs - their_set
+        for msg_id in missing:
+            await self.send(peer_id, self.msg_store[msg_id])

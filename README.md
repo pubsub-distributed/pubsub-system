@@ -5,12 +5,15 @@ A scalable, secure, and fault-tolerant **Publish-Subscribe (Pub-Sub) system** im
 ## **Features**
 
 - Distributed Pub-Sub across nodes
-- Gossip protocol for efficient, redundant-minimized dissemination
+- Gossip protocol for scalable, low-overhead dissemination (messages relayed to a random subset of peers, with duplicate suppression)
+- Due to the probabilistic nature of gossip, message delivery is highly reliable in practice but not absolutely guaranteed for each delivery (unless fanout equals network size).
 - Dynamic subscription/unsubscription at runtime (HTTP API)
-- Secure inter-node messaging with asymmetric cryptography
+- Secure inter-node messaging with symmetric (AES) or asymmetric cryptography
 - Fault-tolerant (handles node failures/network partitions)
 - HTTP REST endpoints for easy control
 - Dockerized for simple multi-node deployment
+
+⚠️ Due to the randomized nature of gossip, a message may take several rounds to reach all subscribers, especially in larger clusters.
 
 ---
 

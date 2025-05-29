@@ -1,19 +1,22 @@
+// protos/gossip.proto
 syntax = "proto3";
 
 service GossipService {
-  rpc RegisterPublicKey (PublicKeyMessage) returns (Ack);
   rpc SendMessage (GossipMessage) returns (Ack);
-}
-
-message PublicKeyMessage {
-  string sender = 1;
-  bytes public_key = 2;
+  rpc SyncSeenMsgs (SeenMsgs) returns (Ack);
 }
 
 message GossipMessage {
   string topic = 1;
   string content = 2;
   string sender = 3;
+  double timestamp = 4;
+  string msg_id = 5;
+}
+
+message SeenMsgs {
+  string sender = 1;
+  repeated string msg_ids = 2;
 }
 
 message Ack {

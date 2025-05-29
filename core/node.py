@@ -1,12 +1,14 @@
+# node.py
 import asyncio
 import json
 import time
+import hashlib
 from aiohttp import web
 from core.broker import Broker
 from core.gossip import GossipAgent
 from core.publisher import Publisher
 from core.subscriber import Subscriber
-from security.crypto_utils import generate_keys, hybrid_encrypt, hybrid_decrypt
+from security.crypto_utils import encrypt_message, decrypt_message
 
 class Node:
     def __init__(self, node_id, all_peers, broker: Broker, is_publisher=False, is_subscriber=False):
@@ -18,36 +20,50 @@ class Node:
         self.gossip = GossipAgent(node_id, self.peers, self)
         self.publisher = Publisher(node_id, broker, self.gossip) if is_publisher else None
         self.subscriber = Subscriber(node_id) if is_subscriber else None
-        self.private_key, self.public_key = generate_keys()
-        self.peer_public_keys = {self.node_id: self.public_key}  # always have own pubkey
+        # self.private_key, self.public_key = generate_keys()
+        # self.peer_public_keys = {self.node_id: self.public_key}  # always have own pubkey
 
-    async def broadcast_public_key(self):
-        for peer in self.peers:
-            await self.gossip.send_public_key(peer, self.public_key)
+    # async def broadcast_public_key(self):
+    #     for peer in self.peers:
+    #         await self.gossip.send_public_key(peer, self.public_key)
 
-    async def register_peer_key(self, peer_id, peer_pubkey_bytes):
-        self.peer_public_keys[peer_id] = peer_pubkey_bytes
+    # async def register_peer_key(self, peer_id, peer_pubkey_bytes):
+    #     self.peer_public_keys[peer_id] = peer_pubkey_bytes
 
-    async def wait_for_all_keys(self):
-        while len(self.peer_public_keys) < len(self.peers) + 1:
-            await asyncio.sleep(0.1)
-        print(f"[{self.node_id}] All peer public keys received!")
+    # async def wait_for_all_keys(self):
+    #     while len(self.peer_public_keys) < len(self.peers) + 1:
+    #         await asyncio.sleep(0.1)
+    #     print(f"[{self.node_id}] All peer public keys received!")
 
     async def publish(self, topic, message):
         if not self.is_publisher:
             raise Exception(f"[{self.node_id}] is not a publisher.")
+        timestamp = time.time()
+        raw_id = f"{self.node_id}-{timestamp}-{message}"
+        msg_id = hashlib.sha256(raw_id.encode()).hexdigest()
         msg_payload = {
             "sender": self.node_id,
             "message": message,
-            "timestamp": time.time(),
+            "timestamp": timestamp,
         }
-        for peer in self.peers:
-            target_pubkey = self.peer_public_keys[peer]
-            encrypted_payload = hybrid_encrypt(target_pubkey, json.dumps(msg_payload))
-            encrypted_msg = json.dumps(encrypted_payload)
-            if peer == self.peers[0]:
-                print(f"[{self.node_id}] Publishing | Topic: {topic}")
-            await self.publisher.publish(peer, topic, encrypted_msg)
+        # for peer in self.peers:
+        #     target_pubkey = self.peer_public_keys[peer]
+        #     encrypted_payload = hybrid_encrypt(target_pubkey, json.dumps(msg_payload))
+        #     encrypted_msg = json.dumps(encrypted_payload)
+        #     if peer == self.peers[0]:
+        #         print(f"[{self.node_id}] Publishing | Topic: {topic}")
+        #     await self.publisher.publish(peer, topic, encrypted_msg)
+        encrypted_payload = encrypt_message(json.dumps(msg_payload))
+        encrypted_msg = json.dumps(encrypted_payload)
+        msg = {
+            "topic": topic,
+            "content": encrypted_msg,
+            "sender": self.node_id,
+            "timestamp": timestamp,
+            "msg_id": msg_id
+        }
+        print(f"[{self.node_id}] Publishing | Topic: {topic}")
+        await self.gossip.broadcast(msg)
 
     def subscribe(self, topic):
         if not self.is_subscriber:
@@ -62,21 +78,25 @@ class Node:
             self.subscriber.unsubscribe(topic, self.broker)
 
     def receive(self, msg):
-        # print(f"[{self.node_id}] receive() called with: {msg}")
         if not self.is_subscriber:
             return
         try:
             encrypted_payload = json.loads(msg['content'])
-            decrypted_payload = hybrid_decrypt(self.private_key, encrypted_payload)
+            decrypted_payload = decrypt_message(encrypted_payload)
             msg_payload = json.loads(decrypted_payload)
-            
-            filtered = {"topic": msg["topic"], "content": msg_payload}
-            self.subscriber.receive(filtered)
+            msg_payload["msg_id"] = msg.get("msg_id")
+            msg_payload["sender"] = msg.get("sender")
+            msg_payload["timestamp"] = msg.get("timestamp")
+            self.subscriber.receive({"topic": msg["topic"], "content": msg_payload})
+            # print(f"[{self.node_id}] Received | Topic: {msg['topic']} | Message: {msg_payload['message']}")
+            # filtered = {"topic": msg["topic"], "content": msg_payload}
+            # self.subscriber.receive(filtered)
+            asyncio.create_task(self.gossip.broadcast(msg))
         except Exception as e:
             print(f"[{self.node_id}] Failed to decrypt message: {e}")
 
-    def get_public_key(self):
-        return self.public_key
+    # def get_public_key(self):
+    #     return self.public_key
 
 # ---- HTTP ----
 
@@ -107,10 +127,7 @@ def create_app(node: Node):
 
     @routes.get('/status')
     async def status_api(request):
-        # topic_map = node.broker.get_topic_map()
         print("Topic -> Nodes")
-        # for topic, nodes in topic_map.items():
-        #     print(f"{topic}: {nodes}")
         nodes = node.node_id
         subscriptions = node.get_subscribe()
         for topic in subscriptions:
@@ -118,9 +135,6 @@ def create_app(node: Node):
         return web.json_response({
             "node_id": node.node_id,
             "subscriptions": node.get_subscribe(),
-            # "topic_map": topic_map
-            # "peers": node.peers,
-            # "public_keys": list(node.peer_public_keys.keys())
         })
 
     app = web.Application()
@@ -139,26 +153,26 @@ async def start_http_server(node, port=8000):
 #     node = request.app['node']
 #     return web.json_response({"node_id": node.node_id, "subscriptions": node.get_subscriptions()})
 
-async def main():
-    import os
-    node_id = os.getenv("NODE_ID")
-    all_peers = os.getenv("ALL_PEERS").split(",")
-    broker = Broker()
-    node = Node(node_id, all_peers, broker, is_publisher=True, is_subscriber=True)
-    from core.grpc_server import serve
-    asyncio.create_task(serve(node, 5000))
+# async def main():
+#     import os
+#     node_id = os.getenv("NODE_ID")
+#     all_peers = os.getenv("ALL_PEERS").split(",")
+#     broker = Broker()
+#     node = Node(node_id, all_peers, broker, is_publisher=True, is_subscriber=True)
+#     from core.grpc_server import serve
+#     asyncio.create_task(serve(node, 5000))
 
-    asyncio.create_task(start_http_server(node, 8000))
+#     asyncio.create_task(start_http_server(node, 8000))
 
-    await asyncio.sleep(1)
-    await node.broadcast_public_key()
-    await node.wait_for_all_keys()
-    node.subscribe("chat")
+#     # await asyncio.sleep(1)
+#     # await node.broadcast_public_key()
+#     # await node.wait_for_all_keys()
+#     node.subscribe("chat")
 
-    print(f"[{node_id}] Node started as daemon, use HTTP API to publish/subscribe.")
+#     print(f"[{node_id}] Node started as daemon, use HTTP API to publish/subscribe.")
 
-    while True:
-        await asyncio.sleep(60)
+#     while True:
+#         await asyncio.sleep(60)
 
-if __name__ == "__main__":
-    asyncio.run(main())
+# if __name__ == "__main__":
+#     asyncio.run(main())

@@ -1,3 +1,4 @@
+# start_node.py
 import os
 import sys
 import asyncio
@@ -18,13 +19,15 @@ async def main():
 
     asyncio.create_task(serve(node, 5000))
     asyncio.create_task(start_http_server(node, 8000))
+    await asyncio.sleep(2)
+    asyncio.create_task(node.gossip.push_seen_msgs())
 
     # Startup handshake: broadcast and collect pubkeys
-    await asyncio.sleep(1)
-    await node.broadcast_public_key()
-    print(f"[{node_id}] Waiting for all peer public keys ...")
-    await node.wait_for_all_keys()
-    print(f"[{node_id}] All peer keys received. Proceeding to daemon mode.")
+    # await asyncio.sleep(1)
+    # await node.broadcast_public_key()
+    # print(f"[{node_id}] Waiting for all peer public keys ...")
+    # await node.wait_for_all_keys()
+    # print(f"[{node_id}] All peer keys received. Proceeding to daemon mode.")
 
     node.subscribe("chat")
 

@@ -34,14 +34,14 @@ class GossipServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.RegisterPublicKey = channel.unary_unary(
-                '/GossipService/RegisterPublicKey',
-                request_serializer=gossip__pb2.PublicKeyMessage.SerializeToString,
-                response_deserializer=gossip__pb2.Ack.FromString,
-                _registered_method=True)
         self.SendMessage = channel.unary_unary(
                 '/GossipService/SendMessage',
                 request_serializer=gossip__pb2.GossipMessage.SerializeToString,
+                response_deserializer=gossip__pb2.Ack.FromString,
+                _registered_method=True)
+        self.SyncSeenMsgs = channel.unary_unary(
+                '/GossipService/SyncSeenMsgs',
+                request_serializer=gossip__pb2.SeenMsgs.SerializeToString,
                 response_deserializer=gossip__pb2.Ack.FromString,
                 _registered_method=True)
 
@@ -49,13 +49,13 @@ class GossipServiceStub(object):
 class GossipServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def RegisterPublicKey(self, request, context):
+    def SendMessage(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def SendMessage(self, request, context):
+    def SyncSeenMsgs(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -64,14 +64,14 @@ class GossipServiceServicer(object):
 
 def add_GossipServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'RegisterPublicKey': grpc.unary_unary_rpc_method_handler(
-                    servicer.RegisterPublicKey,
-                    request_deserializer=gossip__pb2.PublicKeyMessage.FromString,
-                    response_serializer=gossip__pb2.Ack.SerializeToString,
-            ),
             'SendMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.SendMessage,
                     request_deserializer=gossip__pb2.GossipMessage.FromString,
+                    response_serializer=gossip__pb2.Ack.SerializeToString,
+            ),
+            'SyncSeenMsgs': grpc.unary_unary_rpc_method_handler(
+                    servicer.SyncSeenMsgs,
+                    request_deserializer=gossip__pb2.SeenMsgs.FromString,
                     response_serializer=gossip__pb2.Ack.SerializeToString,
             ),
     }
@@ -84,33 +84,6 @@ def add_GossipServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class GossipService(object):
     """Missing associated documentation comment in .proto file."""
-
-    @staticmethod
-    def RegisterPublicKey(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/GossipService/RegisterPublicKey',
-            gossip__pb2.PublicKeyMessage.SerializeToString,
-            gossip__pb2.Ack.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
 
     @staticmethod
     def SendMessage(request,
@@ -128,6 +101,33 @@ class GossipService(object):
             target,
             '/GossipService/SendMessage',
             gossip__pb2.GossipMessage.SerializeToString,
+            gossip__pb2.Ack.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SyncSeenMsgs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/GossipService/SyncSeenMsgs',
+            gossip__pb2.SeenMsgs.SerializeToString,
             gossip__pb2.Ack.FromString,
             options,
             channel_credentials,

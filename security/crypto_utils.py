@@ -1,47 +1,65 @@
-from Crypto.PublicKey import RSA
-from Crypto.Cipher import PKCS1_OAEP, AES
-from Crypto.Random import get_random_bytes
-import base64
+# from Crypto.PublicKey import RSA
+# from Crypto.Cipher import PKCS1_OAEP, AES
+# from Crypto.Random import get_random_bytes
+# import base64
+from Crypto.Cipher import AES
+from security.shared_secret import SHARED_AES_KEY
 
-def generate_keys():
-    key = RSA.generate(2048)
-    private_key = key.export_key()
-    public_key = key.publickey().export_key()
-    return private_key, public_key
+# def generate_keys():
+#     key = RSA.generate(2048)
+#     private_key = key.export_key()
+#     public_key = key.publickey().export_key()
+#     return private_key, public_key
 
-def hybrid_encrypt(pubkey, plaintext):
-    # Generate AES key
-    aes_key = get_random_bytes(16)  # AES-128
-    cipher_aes = AES.new(aes_key, AES.MODE_EAX)
-    ciphertext, tag = cipher_aes.encrypt_and_digest(plaintext.encode())
+# def hybrid_encrypt(pubkey, plaintext):
+#     # Generate AES key
+#     aes_key = get_random_bytes(16)  # AES-128
+#     cipher_aes = AES.new(aes_key, AES.MODE_EAX)
+#     ciphertext, tag = cipher_aes.encrypt_and_digest(plaintext.encode())
 
-    # Encrypt AES key with RSA
-    rsa_key = RSA.import_key(pubkey)
-    cipher_rsa = PKCS1_OAEP.new(rsa_key)
-    enc_aes_key = cipher_rsa.encrypt(aes_key)
+#     # Encrypt AES key with RSA
+#     rsa_key = RSA.import_key(pubkey)
+#     cipher_rsa = PKCS1_OAEP.new(rsa_key)
+#     enc_aes_key = cipher_rsa.encrypt(aes_key)
 
-    # Package all (base64 encode for transport)
-    payload = {
-        'enc_aes_key': base64.b64encode(enc_aes_key).decode(),
-        'nonce': base64.b64encode(cipher_aes.nonce).decode(),
-        'tag': base64.b64encode(tag).decode(),
-        'ciphertext': base64.b64encode(ciphertext).decode()
+#     # Package all (base64 encode for transport)
+#     payload = {
+#         'enc_aes_key': base64.b64encode(enc_aes_key).decode(),
+#         'nonce': base64.b64encode(cipher_aes.nonce).decode(),
+#         'tag': base64.b64encode(tag).decode(),
+#         'ciphertext': base64.b64encode(ciphertext).decode()
+#     }
+#     return payload
+
+# def hybrid_decrypt(privkey, payload):
+#     # Decode all parts
+#     enc_aes_key = base64.b64decode(payload['enc_aes_key'])
+#     nonce = base64.b64decode(payload['nonce'])
+#     tag = base64.b64decode(payload['tag'])
+#     ciphertext = base64.b64decode(payload['ciphertext'])
+
+#     # Decrypt AES key with RSA
+#     rsa_key = RSA.import_key(privkey)
+#     cipher_rsa = PKCS1_OAEP.new(rsa_key)
+#     aes_key = cipher_rsa.decrypt(enc_aes_key)
+
+#     # Decrypt message with AES
+#     cipher_aes = AES.new(aes_key, AES.MODE_EAX, nonce)
+#     plaintext = cipher_aes.decrypt_and_verify(ciphertext, tag)
+#     return plaintext.decode()
+
+def encrypt_message(plaintext):
+    cipher = AES.new(SHARED_AES_KEY, AES.MODE_EAX)
+    ciphertext, tag = cipher.encrypt_and_digest(plaintext.encode())
+    return {
+        'nonce': cipher.nonce.hex(),
+        'tag': tag.hex(),
+        'ciphertext': ciphertext.hex()
     }
-    return payload
 
-def hybrid_decrypt(privkey, payload):
-    # Decode all parts
-    enc_aes_key = base64.b64decode(payload['enc_aes_key'])
-    nonce = base64.b64decode(payload['nonce'])
-    tag = base64.b64decode(payload['tag'])
-    ciphertext = base64.b64decode(payload['ciphertext'])
-
-    # Decrypt AES key with RSA
-    rsa_key = RSA.import_key(privkey)
-    cipher_rsa = PKCS1_OAEP.new(rsa_key)
-    aes_key = cipher_rsa.decrypt(enc_aes_key)
-
-    # Decrypt message with AES
-    cipher_aes = AES.new(aes_key, AES.MODE_EAX, nonce)
-    plaintext = cipher_aes.decrypt_and_verify(ciphertext, tag)
-    return plaintext.decode()
+def decrypt_message(payload):
+    nonce = bytes.fromhex(payload['nonce'])
+    tag = bytes.fromhex(payload['tag'])
+    ciphertext = bytes.fromhex(payload['ciphertext'])
+    cipher = AES.new(SHARED_AES_KEY, AES.MODE_EAX, nonce)
+    return cipher.decrypt_and_verify(ciphertext, tag).decode()

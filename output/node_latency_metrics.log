@@ -1,36 +1,18 @@
 
-[Node Latency Metrics from output/node_latency.log]
-Count: 1000
-Average delivery latency: 0.0554s
-Min: 0.0161s
-Max: 0.2440s
-
-[Node Latency Metrics from output/node_latency.log]
-Count: 1500
-Average delivery latency: 0.0563s
-Min: 0.0161s
-Max: 0.2440s
+[Node Latency Metrics from ../output/node_latency.log]
+Count: 228
+Average delivery latency: 0.0154s
+Min: 0.0020s
+Max: 0.0684s
 
 [Node Latency Metrics from ../output/node_latency.log]
-Count: 1500
-Average delivery latency: 0.0563s
-Min: 0.0161s
-Max: 0.2440s
+Count: 330
+Average delivery latency: 0.0172s
+Min: 0.0016s
+Max: 0.9993s
 
 [Node Latency Metrics from ../output/node_latency.log]
-Count: 1500
-Average delivery latency: 0.0563s
-Min: 0.0161s
-Max: 0.2440s
-
-[Node Latency Metrics from ../output/node_latency.log]
-Count: 1520
-Average delivery latency: 0.0568s
-Min: 0.0161s
-Max: 0.2440s
-
-[Node Latency Metrics from ../output/node_latency.log]
-Count: 1520
-Average delivery latency: 0.0568s
-Min: 0.0161s
-Max: 0.2440s
+Count: 445
+Average delivery latency: 7.9061s
+Min: 0.0016s
+Max: 240.7059s
