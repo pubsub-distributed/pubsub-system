@@ -11,7 +11,7 @@ from core.subscriber import Subscriber
 from security.crypto_utils import encrypt_message, decrypt_message
 
 class Node:
-    def __init__(self, node_id, all_peers, broker: Broker, is_publisher=False, is_subscriber=False):
+    def __init__(self, node_id, all_peers, broker: Broker, is_publisher=False, is_subscriber=False, mode="gossip"):
         self.node_id = node_id
         self.broker = broker
         self.is_publisher = is_publisher
@@ -20,24 +20,61 @@ class Node:
         self.gossip = GossipAgent(node_id, self.peers, self)
         self.publisher = Publisher(node_id, broker, self.gossip) if is_publisher else None
         self.subscriber = Subscriber(node_id) if is_subscriber else None
-        # self.private_key, self.public_key = generate_keys()
-        # self.peer_public_keys = {self.node_id: self.public_key}  # always have own pubkey
+        self.lamport = 0
+        self.mode = mode
+        self.leader_id = self.calc_leader()
+        print(f"[{self.node_id}] Leader is {self.leader_id}")
+    
+    def calc_leader(self, alive_peers=None):
+        if alive_peers is None:
+            alive_peers = self.peers
+        return min([self.node_id] + alive_peers)
 
-    # async def broadcast_public_key(self):
-    #     for peer in self.peers:
-    #         await self.gossip.send_public_key(peer, self.public_key)
+    def is_leader(self):
+        return self.node_id == self.leader_id
+    
+    def update_lamport(self, received_lamport=None):
+        if received_lamport is not None:
+            self.lamport = max(self.lamport, received_lamport) + 1
+        else:
+            self.lamport += 1
+    
+    async def check_leader_loop(self, interval=5):
+        while True:
+            await asyncio.sleep(interval)
+            if not await self.is_leader_alive():
+                alive_peers = []
+                for peer in self.peers:
+                    if await self.is_peer_alive(peer):
+                        alive_peers.append(peer)
+                new_leader = self.calc_leader(alive_peers)
+                if new_leader != self.leader_id:
+                    print(f"[{self.node_id}] Leader changed from {self.leader_id} to {new_leader}")
+                    self.leader_id = new_leader
+    
+    async def is_leader_alive(self):
+        if self.node_id == self.leader_id:
+            return True
+        try:
+            await self.gossip.ping(self.leader_id)
+            return True
+        except Exception:
+            return False
 
-    # async def register_peer_key(self, peer_id, peer_pubkey_bytes):
-    #     self.peer_public_keys[peer_id] = peer_pubkey_bytes
-
-    # async def wait_for_all_keys(self):
-    #     while len(self.peer_public_keys) < len(self.peers) + 1:
-    #         await asyncio.sleep(0.1)
-    #     print(f"[{self.node_id}] All peer public keys received!")
+    async def is_peer_alive(self, peer_id):
+        try:
+            await self.gossip.ping(peer_id)
+            return True
+        except Exception:
+            return False
 
     async def publish(self, topic, message):
         if not self.is_publisher:
             raise Exception(f"[{self.node_id}] is not a publisher.")
+        
+        # Lamport clock tick
+        self.update_lamport()
+
         timestamp = time.time()
         raw_id = f"{self.node_id}-{timestamp}-{message}"
         msg_id = hashlib.sha256(raw_id.encode()).hexdigest()
@@ -45,14 +82,9 @@ class Node:
             "sender": self.node_id,
             "message": message,
             "timestamp": timestamp,
+            "lamport": self.lamport
         }
-        # for peer in self.peers:
-        #     target_pubkey = self.peer_public_keys[peer]
-        #     encrypted_payload = hybrid_encrypt(target_pubkey, json.dumps(msg_payload))
-        #     encrypted_msg = json.dumps(encrypted_payload)
-        #     if peer == self.peers[0]:
-        #         print(f"[{self.node_id}] Publishing | Topic: {topic}")
-        #     await self.publisher.publish(peer, topic, encrypted_msg)
+
         encrypted_payload = encrypt_message(json.dumps(msg_payload))
         encrypted_msg = json.dumps(encrypted_payload)
         msg = {
@@ -60,10 +92,25 @@ class Node:
             "content": encrypted_msg,
             "sender": self.node_id,
             "timestamp": timestamp,
-            "msg_id": msg_id
+            "msg_id": msg_id,
+            "lamport": self.lamport
         }
-        print(f"[{self.node_id}] Publishing | Topic: {topic}")
-        await self.gossip.broadcast(msg)
+        print(f"[{self.node_id}] Publishing | Topic: {topic} | Lamport: {self.lamport}")
+        # await self.gossip.broadcast(msg)
+
+        if self.mode == "gossip":
+            await self.gossip.broadcast(msg)
+        elif self.mode == "leader":
+            if self.is_leader():
+                print(f"[{self.node_id}] I am the leader, distributing message to all peers.")
+                for peer in self.peers:
+                    await self.gossip.send(peer, msg)
+                self.receive(msg) 
+            else:
+                print(f"[{self.node_id}] Not leader, sending message to leader [{self.leader_id}] for distribution.")
+                await self.gossip.send(self.leader_id, msg)
+        else:
+            raise ValueError("Unknown pub-sub mode")
 
     def subscribe(self, topic):
         if not self.is_subscriber:
@@ -84,19 +131,32 @@ class Node:
             encrypted_payload = json.loads(msg['content'])
             decrypted_payload = decrypt_message(encrypted_payload)
             msg_payload = json.loads(decrypted_payload)
-            msg_payload["msg_id"] = msg.get("msg_id")
-            msg_payload["sender"] = msg.get("sender")
-            msg_payload["timestamp"] = msg.get("timestamp")
-            self.subscriber.receive({"topic": msg["topic"], "content": msg_payload})
-            # print(f"[{self.node_id}] Received | Topic: {msg['topic']} | Message: {msg_payload['message']}")
-            # filtered = {"topic": msg["topic"], "content": msg_payload}
-            # self.subscriber.receive(filtered)
-            asyncio.create_task(self.gossip.broadcast(msg))
+
+            msg_id = msg.get("msg_id")
+            if msg_id not in self.subscriber.seen_msgs:
+                received_lamport = msg.get("lamport", 0)
+                self.update_lamport(received_lamport)
+                current_lamport = self.lamport
+                print(f"[{self.node_id}] Received | Topic: {msg['topic']} | Lamport: {current_lamport} | From: {msg.get('sender')}")
+
+                msg_payload["msg_id"] = msg.get("msg_id")
+                msg_payload["sender"] = msg.get("sender")
+                msg_payload["timestamp"] = msg.get("timestamp")
+                msg_payload["lamport"] = current_lamport
+                self.subscriber.receive({"topic": msg["topic"], "content": msg_payload})
+
+            # asyncio.create_task(self.gossip.broadcast(msg))
+
+            if self.mode == "leader" and self.is_leader() and msg["sender"] != self.node_id:
+                print(f"[{self.node_id}] (Leader) Received message from [{msg['sender']}], forwarding to other peers.")
+                for peer in self.peers:
+                    if peer != msg["sender"]:
+                        asyncio.create_task(self.gossip.send(peer, msg))
+            elif self.mode == "gossip":
+                asyncio.create_task(self.gossip.broadcast(msg))
+
         except Exception as e:
             print(f"[{self.node_id}] Failed to decrypt message: {e}")
-
-    # def get_public_key(self):
-    #     return self.public_key
 
 # ---- HTTP ----
 
@@ -136,6 +196,16 @@ def create_app(node: Node):
             "node_id": node.node_id,
             "subscriptions": node.get_subscribe(),
         })
+    
+    @routes.post('/switch_mode')
+    async def switch_mode_api(request):
+        data = await request.json()
+        mode = data.get("mode")
+        if mode not in ("gossip", "leader"):
+            return web.Response(text="Mode must be 'gossip' or 'leader'", status=400)
+        node.mode = mode
+        print(f"[{node.node_id}] PubSub mode switched to {mode}")
+        return web.Response(text=f"Mode switched to {mode}")
 
     app = web.Application()
     app.add_routes(routes)
@@ -148,31 +218,3 @@ async def start_http_server(node, port=8000):
     site = web.TCPSite(runner, "0.0.0.0", port)
     await site.start()
     print(f"[{node.node_id}] HTTP API server started on port {port}")
-
-# async def status_api(request):
-#     node = request.app['node']
-#     return web.json_response({"node_id": node.node_id, "subscriptions": node.get_subscriptions()})
-
-# async def main():
-#     import os
-#     node_id = os.getenv("NODE_ID")
-#     all_peers = os.getenv("ALL_PEERS").split(",")
-#     broker = Broker()
-#     node = Node(node_id, all_peers, broker, is_publisher=True, is_subscriber=True)
-#     from core.grpc_server import serve
-#     asyncio.create_task(serve(node, 5000))
-
-#     asyncio.create_task(start_http_server(node, 8000))
-
-#     # await asyncio.sleep(1)
-#     # await node.broadcast_public_key()
-#     # await node.wait_for_all_keys()
-#     node.subscribe("chat")
-
-#     print(f"[{node_id}] Node started as daemon, use HTTP API to publish/subscribe.")
-
-#     while True:
-#         await asyncio.sleep(60)
-
-# if __name__ == "__main__":
-#     asyncio.run(main())

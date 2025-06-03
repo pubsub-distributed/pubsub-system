@@ -454,3 +454,208 @@
 [C] Received | Sender: [A] | Topic: news | Message: wan shang hao | Latency: 0.0147s
 [C] Received | Sender: [A] | Topic: news | Message: wan shang hao | Latency: 0.0109s
 [D] Received | Sender: [A] | Topic: news | Message: wan shang hao | Latency: 0.0169s
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0281s
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0446s
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0541s
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0624s
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0730s
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0747s
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0095s
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0166s
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0210s
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0260s
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0312s
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0325s
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0040s
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0109s
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0154s
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0187s
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0211s
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0220s
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0051s
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0132s
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0178s
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0216s
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0242s
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0253s
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0043s
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0092s
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0130s
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0165s
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0187s
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0194s
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0179s
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0267s
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0271s
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0346s
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0355s
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0400s
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0078s
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0185s
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0229s
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0275s
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0311s
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0335s
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0168s
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0256s
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0320s
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0402s
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0466s
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys  | Latency: 0.0489s
+[A] Received | Sender: [B] | Topic: chat | Message:  Hello guys  | Latency: 0.0086s
+[F] Received | Sender: [B] | Topic: chat | Message:  Hello guys  | Latency: 0.0166s
+[E] Received | Sender: [B] | Topic: chat | Message:  Hello guys  | Latency: 0.0162s
+[C] Received | Sender: [B] | Topic: chat | Message:  Hello guys  | Latency: 0.0164s
+[D] Received | Sender: [B] | Topic: chat | Message:  Hello guys  | Latency: 0.0163s
+[A] Received | Sender: [B] | Topic: chat | Message:  Hello guys  | Latency: 0.0255s
+[C] Received | Sender: [B] | Topic: chat | Message:  Hello guys  | Latency: 0.0384s
+[D] Received | Sender: [B] | Topic: chat | Message:  Hello guys  | Latency: 0.0385s
+[E] Received | Sender: [B] | Topic: chat | Message:  Hello guys  | Latency: 0.0396s
+[F] Received | Sender: [B] | Topic: chat | Message:  Hello guys  | Latency: 0.0392s
+[C] Received | Sender: [B] | Topic: chat | Message:  Hello guys  | Latency: 0.0130s
+[D] Received | Sender: [B] | Topic: chat | Message:  Hello guys  | Latency: 0.0179s
+[E] Received | Sender: [B] | Topic: chat | Message:  Hello guys  | Latency: 0.0210s
+[F] Received | Sender: [B] | Topic: chat | Message:  Hello guys  | Latency: 0.0247s
+[B] Received | Sender: [B] | Topic: chat | Message:  Hello guys  | Latency: 0.0264s
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0067s
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0120s
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0120s
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0121s
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0187s | Lamport: 1
+[A] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0289s | Lamport: 1
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0379s | Lamport: 1
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0387s | Lamport: 1
+[C] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0439s | Lamport: 1
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0516s | Lamport: 1
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0087s | Lamport: 5
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0144s | Lamport: 5
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0143s | Lamport: 5
+[C] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0195s | Lamport: 5
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0200s | Lamport: 5
+[A] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0293s | Lamport: 5
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0469s | Lamport: 1
+[A] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0773s | Lamport: 1
+[C] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0818s | Lamport: 2
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0820s | Lamport: 1
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.1141s | Lamport: 1
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.1241s | Lamport: 1
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0470s | Lamport: 1
+[A] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0764s | Lamport: 1
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0770s | Lamport: 1
+[C] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0948s | Lamport: 2
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.1084s | Lamport: 1
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.1193s | Lamport: 1
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0202s | Lamport: 1
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0448s | Lamport: 1
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0457s | Lamport: 1
+[A] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0569s | Lamport: 1
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0592s | Lamport: 1
+[C] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0661s | Lamport: 2
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0142s | Lamport: 1
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0227s | Lamport: 1
+[C] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0258s | Lamport: 2
+[A] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0281s | Lamport: 1
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0304s | Lamport: 1
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0344s | Lamport: 1
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0350s | Lamport: 1
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0668s | Lamport: 1
+[A] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0703s | Lamport: 1
+[C] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0746s | Lamport: 2
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0957s | Lamport: 1
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0984s | Lamport: 1
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0187s | Lamport: 1
+[A] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0267s | Lamport: 1
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0268s | Lamport: 1
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0354s | Lamport: 1
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0354s | Lamport: 1
+[C] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0415s | Lamport: 2
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0245s | Lamport: 1
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0333s | Lamport: 1
+[A] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0341s | Lamport: 1
+[C] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0409s | Lamport: 2
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0499s | Lamport: 1
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0500s | Lamport: 1
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0206s | Lamport: 1
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0317s | Lamport: 1
+[A] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0332s | Lamport: 1
+[C] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0420s | Lamport: 2
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0520s | Lamport: 1
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0596s | Lamport: 1
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0275s | Lamport: 1
+[A] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0369s | Lamport: 1
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0372s | Lamport: 1
+[C] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0442s | Lamport: 2
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0487s | Lamport: 1
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0607s | Lamport: 1
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0154s | Lamport: 1
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0254s | Lamport: 1
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0258s | Lamport: 1
+[C] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0285s | Lamport: 2
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0368s | Lamport: 1
+[A] Received | Sender: [C] | Topic: chat | Message:  Hello guys  | Latency: 0.0460s | Lamport: 1
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys 2  | Latency: 0.0089s | Lamport: 2
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys 2  | Latency: 0.0213s | Lamport: 2
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys 2  | Latency: 0.0219s | Lamport: 2
+[C] Received | Sender: [C] | Topic: chat | Message:  Hello guys 2  | Latency: 0.0286s | Lamport: 4
+[A] Received | Sender: [C] | Topic: chat | Message:  Hello guys 2  | Latency: 0.0398s | Lamport: 2
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys 2  | Latency: 0.0517s | Lamport: 2
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys 3  | Latency: 0.0144s | Lamport: 3
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys 3  | Latency: 0.0214s | Lamport: 3
+[C] Received | Sender: [C] | Topic: chat | Message:  Hello guys 3  | Latency: 0.0267s | Lamport: 6
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys 3  | Latency: 0.0299s | Lamport: 3
+[A] Received | Sender: [C] | Topic: chat | Message:  Hello guys 3  | Latency: 0.0376s | Lamport: 3
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys 3  | Latency: 0.0376s | Lamport: 3
+[B] Received | Sender: [C] | Topic: chat | Message:  Hello guys 4  | Latency: 0.0055s | Lamport: 4
+[F] Received | Sender: [C] | Topic: chat | Message:  Hello guys 4  | Latency: 0.0127s | Lamport: 4
+[C] Received | Sender: [C] | Topic: chat | Message:  Hello guys 4  | Latency: 0.0200s | Lamport: 8
+[A] Received | Sender: [C] | Topic: chat | Message:  Hello guys 4  | Latency: 0.0202s | Lamport: 4
+[E] Received | Sender: [C] | Topic: chat | Message:  Hello guys 4  | Latency: 0.0239s | Lamport: 4
+[D] Received | Sender: [C] | Topic: chat | Message:  Hello guys 4  | Latency: 0.0300s | Lamport: 4
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys 5  | Latency: 0.0090s | Lamport: 5
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys 5  | Latency: 0.0158s | Lamport: 6
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys 5  | Latency: 0.0170s | Lamport: 5
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys 5  | Latency: 0.0234s | Lamport: 5
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys 5  | Latency: 0.0231s | Lamport: 9
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys 5  | Latency: 0.0421s | Lamport: 5
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys 6  | Latency: 0.0171s | Lamport: 6
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys 6  | Latency: 0.0250s | Lamport: 10
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys 6  | Latency: 0.0287s | Lamport: 6
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys 6  | Latency: 0.0383s | Lamport: 6
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys 6  | Latency: 0.0444s | Lamport: 6
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys 6  | Latency: 0.0473s | Lamport: 8
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys 7  | Latency: 0.0121s | Lamport: 7
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys 7  | Latency: 0.0176s | Lamport: 11
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys 7  | Latency: 0.0225s | Lamport: 7
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys 7  | Latency: 0.0284s | Lamport: 7
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys 7  | Latency: 0.0324s | Lamport: 7
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys 7  | Latency: 0.0346s | Lamport: 10
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys 1  | Latency: 0.0312s | Lamport: 1
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys 1  | Latency: 0.0436s | Lamport: 1
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys 1  | Latency: 0.0570s | Lamport: 1
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys 1  | Latency: 0.0680s | Lamport: 1
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys 1  | Latency: 0.0846s | Lamport: 1
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys 1  | Latency: 0.0877s | Lamport: 2
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys 2  | Latency: 0.0100s | Lamport: 2
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys 2  | Latency: 0.0163s | Lamport: 2
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys 2  | Latency: 0.0258s | Lamport: 2
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys 2  | Latency: 0.0384s | Lamport: 2
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys 2  | Latency: 0.0480s | Lamport: 2
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys 2  | Latency: 0.0522s | Lamport: 4
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys 3  | Latency: 0.0053s | Lamport: 3
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys 3  | Latency: 0.0160s | Lamport: 3
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys 3  | Latency: 0.0348s | Lamport: 3
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys 3  | Latency: 0.0415s | Lamport: 3
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys 3  | Latency: 0.0455s | Lamport: 3
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys 3  | Latency: 0.0503s | Lamport: 6
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys 4  | Latency: 0.0080s | Lamport: 4
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys 4  | Latency: 0.0156s | Lamport: 4
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys 4  | Latency: 0.0262s | Lamport: 4
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys 4  | Latency: 0.0374s | Lamport: 4
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys 4  | Latency: 0.0428s | Lamport: 4
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys 4  | Latency: 0.0452s | Lamport: 8
+[B] Received | Sender: [A] | Topic: chat | Message:  Hello guys 1  | Latency: 0.0348s | Lamport: 1
+[C] Received | Sender: [A] | Topic: chat | Message:  Hello guys 1  | Latency: 0.0602s | Lamport: 1
+[D] Received | Sender: [A] | Topic: chat | Message:  Hello guys 1  | Latency: 0.0724s | Lamport: 1
+[E] Received | Sender: [A] | Topic: chat | Message:  Hello guys 1  | Latency: 0.0899s | Lamport: 1
+[F] Received | Sender: [A] | Topic: chat | Message:  Hello guys 1  | Latency: 0.1070s | Lamport: 1
+[A] Received | Sender: [A] | Topic: chat | Message:  Hello guys 1  | Latency: 0.1099s | Lamport: 2

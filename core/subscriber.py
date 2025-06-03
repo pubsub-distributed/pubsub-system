@@ -9,6 +9,9 @@ class Subscriber:
         import time
         msg_payload = msg.get("content")
         msg_id = msg_payload.get("msg_id")
+        lamport = msg_payload.get("lamport")
+
+
         if msg_id in self.seen_msgs:
             return
         self.seen_msgs.add(msg_id)
@@ -16,9 +19,10 @@ class Subscriber:
         if msg["topic"] in self.topics:
             now = time.time()
             latency = now - publish_time if publish_time else None
+            
             with open(f"/app/output/node_latency.log", "a") as f:
-                f.write(f"[{self.node_id}] Received | Sender: [{msg_payload.get('sender')}] | Topic: {msg['topic']} | Message: {msg_payload.get('message')} | Latency: {latency:.4f}s\n")
-            print(f"[{self.node_id}] Received | Topic: {msg['topic']} | Message: {msg_payload.get('message')} | Latency: {latency:.4f}s")
+                f.write(f"[{self.node_id}] Received | Sender: [{msg_payload.get('sender')}] | Topic: {msg['topic']} | Message: {msg_payload.get('message')} | Latency: {latency:.4f}s | Lamport: {lamport}\n")
+            print(f"[{self.node_id}] Received | Topic: {msg['topic']} | Message: {msg_payload.get('message')} | Latency: {latency:.4f}s | Lamport: {lamport}")
 
     def subscribe(self, topic, broker):
         broker.subscribe(topic, self.node_id)

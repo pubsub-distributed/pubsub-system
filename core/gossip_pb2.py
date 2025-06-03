@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0cgossip.proto\"b\n\rGossipMessage\x12\r\n\x05topic\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\x0e\n\x06sender\x18\x03 \x01(\t\x12\x11\n\ttimestamp\x18\x04 \x01(\x01\x12\x0e\n\x06msg_id\x18\x05 \x01(\t\"+\n\x08SeenMsgs\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0f\n\x07msg_ids\x18\x02 \x03(\t\"\x16\n\x03\x41\x63k\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32U\n\rGossipService\x12#\n\x0bSendMessage\x12\x0e.GossipMessage\x1a\x04.Ack\x12\x1f\n\x0cSyncSeenMsgs\x12\t.SeenMsgs\x1a\x04.Ackb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0cgossip.proto\"s\n\rGossipMessage\x12\r\n\x05topic\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\x0e\n\x06sender\x18\x03 \x01(\t\x12\x11\n\ttimestamp\x18\x04 \x01(\x01\x12\x0e\n\x06msg_id\x18\x05 \x01(\t\x12\x0f\n\x07lamport\x18\x06 \x01(\x03\"+\n\x08SeenMsgs\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0f\n\x07msg_ids\x18\x02 \x03(\t\"\r\n\x0bPingRequest\"\x16\n\x03\x41\x63k\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32q\n\rGossipService\x12#\n\x0bSendMessage\x12\x0e.GossipMessage\x1a\x04.Ack\x12\x1f\n\x0cSyncSeenMsgs\x12\t.SeenMsgs\x1a\x04.Ack\x12\x1a\n\x04Ping\x12\x0c.PingRequest\x1a\x04.Ackb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,11 +32,13 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'gossip_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_GOSSIPMESSAGE']._serialized_start=16
-  _globals['_GOSSIPMESSAGE']._serialized_end=114
-  _globals['_SEENMSGS']._serialized_start=116
-  _globals['_SEENMSGS']._serialized_end=159
-  _globals['_ACK']._serialized_start=161
-  _globals['_ACK']._serialized_end=183
-  _globals['_GOSSIPSERVICE']._serialized_start=185
-  _globals['_GOSSIPSERVICE']._serialized_end=270
+  _globals['_GOSSIPMESSAGE']._serialized_end=131
+  _globals['_SEENMSGS']._serialized_start=133
+  _globals['_SEENMSGS']._serialized_end=176
+  _globals['_PINGREQUEST']._serialized_start=178
+  _globals['_PINGREQUEST']._serialized_end=191
+  _globals['_ACK']._serialized_start=193
+  _globals['_ACK']._serialized_end=215
+  _globals['_GOSSIPSERVICE']._serialized_start=217
+  _globals['_GOSSIPSERVICE']._serialized_end=330
 # @@protoc_insertion_point(module_scope)

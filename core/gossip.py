@@ -14,17 +14,6 @@ class GossipAgent:
         self.msg_store = {}
         self.peer_unavailable = {peer: False for peer in peers}
 
-    # async def send_public_key(self, peer_id, public_key_bytes):
-    #     peer_service = f"node_{peer_id.lower()}"
-    #     async with grpc.aio.insecure_channel(f"{peer_service}:5000") as channel:
-    #         stub = gossip_pb2_grpc.GossipServiceStub(channel)
-    #         msg = gossip_pb2.PublicKeyMessage(sender=self.node_id, public_key=public_key_bytes)
-    #         try:
-    #             await stub.RegisterPublicKey(msg)
-    #             print(f"[{self.node_id}] Sent public key to {peer_id}")
-    #         except Exception as e:
-    #             print(f"[{self.node_id}] Failed to send public key to {peer_id}: {e}")
-
     async def broadcast(self, message, fanout=3):
         msg_id = message['msg_id']
         if msg_id in self.seen_msgs:
@@ -95,3 +84,9 @@ class GossipAgent:
         missing = self.seen_msgs - their_set
         for msg_id in missing:
             await self.send(peer_id, self.msg_store[msg_id])
+    
+    async def ping(self, peer_id):
+        peer_service = f"node_{peer_id.lower()}"
+        async with grpc.aio.insecure_channel(f"{peer_service}:5000") as channel:
+            stub = gossip_pb2_grpc.GossipServiceStub(channel)
+            await stub.Ping(gossip_pb2.PingRequest())

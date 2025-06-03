@@ -7,10 +7,6 @@ from concurrent import futures
 class GossipServiceServicer(gossip_pb2_grpc.GossipServiceServicer):
     def __init__(self, node):
         self.node = node
-
-    # async def RegisterPublicKey(self, request, context):
-    #     await self.node.register_peer_key(request.sender, request.public_key)
-    #     return gossip_pb2.Ack(success=True)
     
     async def SendMessage(self, request, context):
         # print(f"[{self.node.node_id}] SendMessage handler triggered!") 
@@ -30,6 +26,9 @@ class GossipServiceServicer(gossip_pb2_grpc.GossipServiceServicer):
             their_msg_ids = request.msg_ids
             await self.node.gossip.on_receive_seen_msgs(peer_id, their_msg_ids)
             return gossip_pb2.Ack(success=True)
+    
+    async def Ping(self, request, context):
+        return gossip_pb2.Ack(success=True)
 
 async def serve(node, port):
     server = grpc.aio.server()

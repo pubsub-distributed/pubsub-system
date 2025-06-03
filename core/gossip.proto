@@ -4,6 +4,7 @@ syntax = "proto3";
 service GossipService {
   rpc SendMessage (GossipMessage) returns (Ack);
   rpc SyncSeenMsgs (SeenMsgs) returns (Ack);
+  rpc Ping (PingRequest) returns (Ack);
 }
 
 message GossipMessage {
@@ -12,12 +13,15 @@ message GossipMessage {
   string sender = 3;
   double timestamp = 4;
   string msg_id = 5;
+  int64 lamport = 6;
 }
 
 message SeenMsgs {
   string sender = 1;
   repeated string msg_ids = 2;
 }
+
+message PingRequest {}
 
 message Ack {
   bool success = 1;
