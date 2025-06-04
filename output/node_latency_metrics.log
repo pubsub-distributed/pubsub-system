@@ -16,3 +16,9 @@ Count: 445
 Average delivery latency: 7.9061s
 Min: 0.0016s
 Max: 240.7059s
+
+[Node Latency Metrics from ../output/node_latency.log]
+Count: 669
+Average delivery latency: 5.2704s
+Min: 0.0016s
+Max: 240.7059s

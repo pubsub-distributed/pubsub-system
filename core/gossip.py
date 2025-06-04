@@ -6,17 +6,26 @@ from core import gossip_pb2, gossip_pb2_grpc
 
 
 class GossipAgent:
-    def __init__(self, node_id, peers, node=None):
+    def __init__(self, node_id, peers, node=None, peer_addrs=None):
         self.node_id = node_id
         self.peers = peers
         self.node = node  # pass node for callback
         self.seen_msgs = set()
         self.msg_store = {}
         self.peer_unavailable = {peer: False for peer in peers}
+        self.peer_addrs = peer_addrs or {}
+        print(f"[{self.node_id}] GossipAgent peers={self.peers}")
+    
+    def get_peer_addr(self, peer_id):
+        if self.peer_addrs and peer_id in self.peer_addrs:
+            ip, port = self.peer_addrs[peer_id]
+            return f"{ip}:{port}"
+        raise ValueError(f"No address for peer {peer_id} in peer_addrs!")
 
     async def broadcast(self, message, fanout=3):
         msg_id = message['msg_id']
         if msg_id in self.seen_msgs:
+            # print(f"[{self.node_id}] broadcast(): msg_id {msg_id} already seen.")
             return
         self.seen_msgs.add(msg_id)
         self.msg_store[msg_id] = message
@@ -25,9 +34,10 @@ class GossipAgent:
             await self.send(peer_id, message)
 
     async def send(self, peer_id, message):
-        peer_service = f"node_{peer_id.lower()}"
-        # print(f"[{self.node_id}] Preparing to send to {peer_id} at {peer_service}:5000")
-        async with grpc.aio.insecure_channel(f"{peer_service}:5000") as channel:
+        peer_addr = self.get_peer_addr(peer_id)
+        # print(f"[{self.node_id}] send() called, peer={peer_id}, msg_id={message.get('msg_id')}, content={message.get('content')[:50]}")
+        # print(f"[{self.node_id}] Preparing to send to {peer_id} at {peer_addr}")
+        async with grpc.aio.insecure_channel(peer_addr) as channel:
             stub = gossip_pb2_grpc.GossipServiceStub(channel)
             grpc_message = gossip_pb2.GossipMessage(
                 topic=message['topic'],
@@ -59,8 +69,8 @@ class GossipAgent:
             await asyncio.sleep(interval)
 
     async def send_seen_msgs(self, peer_id):
-        peer_service = f"node_{peer_id.lower()}"
-        async with grpc.aio.insecure_channel(f"{peer_service}:5000") as channel:
+        peer_addr = self.get_peer_addr(peer_id)
+        async with grpc.aio.insecure_channel(peer_addr) as channel:
             stub = gossip_pb2_grpc.GossipServiceStub(channel)
             grpc_message = gossip_pb2.SeenMsgs(
                 sender=self.node_id,
@@ -86,7 +96,7 @@ class GossipAgent:
             await self.send(peer_id, self.msg_store[msg_id])
     
     async def ping(self, peer_id):
-        peer_service = f"node_{peer_id.lower()}"
-        async with grpc.aio.insecure_channel(f"{peer_service}:5000") as channel:
+        peer_addr = self.get_peer_addr(peer_id)
+        async with grpc.aio.insecure_channel(peer_addr) as channel:
             stub = gossip_pb2_grpc.GossipServiceStub(channel)
             await stub.Ping(gossip_pb2.PingRequest())

@@ -11,13 +11,13 @@ from core.subscriber import Subscriber
 from security.crypto_utils import encrypt_message, decrypt_message
 
 class Node:
-    def __init__(self, node_id, all_peers, broker: Broker, is_publisher=False, is_subscriber=False, mode="gossip"):
+    def __init__(self, node_id, all_peers, broker: Broker, peer_addrs=None, is_publisher=False, is_subscriber=False, mode="gossip"):
         self.node_id = node_id
         self.broker = broker
         self.is_publisher = is_publisher
         self.is_subscriber = is_subscriber
         self.peers = [peer for peer in all_peers if peer != self.node_id]
-        self.gossip = GossipAgent(node_id, self.peers, self)
+        self.gossip = GossipAgent(node_id, self.peers, self, peer_addrs=peer_addrs)
         self.publisher = Publisher(node_id, broker, self.gossip) if is_publisher else None
         self.subscriber = Subscriber(node_id) if is_subscriber else None
         self.lamport = 0
@@ -137,7 +137,7 @@ class Node:
                 received_lamport = msg.get("lamport", 0)
                 self.update_lamport(received_lamport)
                 current_lamport = self.lamport
-                print(f"[{self.node_id}] Received | Topic: {msg['topic']} | Lamport: {current_lamport} | From: {msg.get('sender')}")
+                # print(f"[{self.node_id}] Received | Topic: {msg['topic']} | Lamport: {current_lamport} | From: {msg.get('sender')}")
 
                 msg_payload["msg_id"] = msg.get("msg_id")
                 msg_payload["sender"] = msg.get("sender")

@@ -659,3 +659,17 @@
 [E] Received | Sender: [A] | Topic: chat | Message:  Hello guys 1  | Latency: 0.0899s | Lamport: 1
 [F] Received | Sender: [A] | Topic: chat | Message:  Hello guys 1  | Latency: 0.1070s | Lamport: 1
 [A] Received | Sender: [A] | Topic: chat | Message:  Hello guys 1  | Latency: 0.1099s | Lamport: 2
+[A] Received | Sender: [B] | Topic: chat | Message: hello | Latency: 0.0156s | Lamport: 1
+[C] Received | Sender: [B] | Topic: chat | Message: hello | Latency: 0.0219s | Lamport: 1
+[B] Received | Sender: [B] | Topic: chat | Message: hello | Latency: 0.0235s | Lamport: 2
+[A] Received | Sender: [B] | Topic: chat | Message: hello | Latency: 0.0145s | Lamport: 1
+[B] Received | Sender: [B] | Topic: chat | Message: hello | Latency: 0.0161s | Lamport: 2
+[C] Received | Sender: [B] | Topic: chat | Message: hello | Latency: 0.0214s | Lamport: 1
+[A] Received | Sender: [B] | Topic: chat | Message: hello | Latency: 0.0142s | Lamport: 1
+[B] Received | Sender: [B] | Topic: chat | Message: hello | Latency: 0.0156s | Lamport: 2
+[C] Received | Sender: [A] | Topic: chat | Message: Houzi | Latency: 0.0039s | Lamport: 2
+[B] Received | Sender: [A] | Topic: chat | Message: Houzi | Latency: 0.0069s | Lamport: 3
+[A] Received | Sender: [A] | Topic: chat | Message: Houzi | Latency: 0.0083s | Lamport: 3
+[B] Received | Sender: [A] | Topic: chat | Message: Malou | Latency: 0.0016s | Lamport: 4
+[C] Received | Sender: [A] | Topic: chat | Message: Malou | Latency: 0.0032s | Lamport: 3
+[A] Received | Sender: [A] | Topic: chat | Message: Malou | Latency: 0.0036s | Lamport: 5

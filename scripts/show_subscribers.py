@@ -16,7 +16,8 @@ for port in NODE_PORTS:
         for topic in subscriptions:
             topic_to_nodes.setdefault(topic, []).append(node_id)
     except Exception as e:
-        print(f"Failed to get status from port {port}: {e}")
+        # print(f"Failed to get status from port {port}: {e}")
+        print("", end="")
 
 print("Topic -> Nodes")
 for topic, nodes in topic_to_nodes.items():

@@ -15,7 +15,8 @@ def main():
             resp = requests.post(url, json={"mode": mode}, timeout=2)
             print(f"[Port {port}] {resp.text.strip()}")
         except Exception as e:
-            print(f"[Port {port}] Error: {e}")
+            # print(f"[Port {port}] Error: {e}")
+            print("", end="")
 
 if __name__ == "__main__":
     main()
