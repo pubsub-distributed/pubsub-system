@@ -1,6 +1,8 @@
 # subscribe_topic.py
 import requests
 import sys
+import json
+import os
 
 def usage():
     print("Usage: python subscribe_topic.py <node_letter> <topic>")
@@ -10,15 +12,19 @@ def usage():
 if len(sys.argv) != 3:
     usage()
 
-node_letter = sys.argv[1]
+node_letter = sys.argv[1].upper()
 topic = sys.argv[2]
 
-if len(node_letter) != 1 or not node_letter.isalpha():
-    print("Error: <node_letter> must be a single letter (e.g., 'a', 'B').")
-    usage()
+peers_path = os.path.join(os.path.dirname(__file__), "../peers.json")
+with open(peers_path, "r") as f:
+    peers = json.load(f)
 
-node_port = ord(node_letter.lower()) - ord('a') + 8000
-node_api_url = f"http://localhost:{node_port}"
+if node_letter not in peers:
+    print(f"Error: Node {node_letter} not found in peers.json.")
+    sys.exit(1)
+
+ip, port = peers[node_letter]
+node_api_url = f"http://{ip}:{port}"
 
 try:
     url = f"{node_api_url}/subscribe"
