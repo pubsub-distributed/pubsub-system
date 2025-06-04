@@ -1,0 +1,20 @@
+==== node_A.log ====
+Total messages: 688
+Senders breakdown: {'A': 558, 'B': 36, 'C': 94}
+Average latency:  5125.10 ms
+Min latency:      1.60 ms
+Max latency:      240705.90 ms
+Std deviation:    31498.84 ms
+P95 latency:      83.69 ms
+P99 latency:      240551.76 ms
+
+==== node_B.log ====
+Total messages: 685
+Senders breakdown: {'A': 558, 'B': 33, 'C': 94}
+Average latency:  5147.45 ms
+Min latency:      1.60 ms
+Max latency:      240705.90 ms
+Std deviation:    31565.93 ms
+P95 latency:      84.08 ms
+P99 latency:      240552.82 ms
+

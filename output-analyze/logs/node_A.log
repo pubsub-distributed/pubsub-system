@@ -673,3 +673,16 @@
 [B] Received | Sender: [A] | Topic: chat | Message: Malou | Latency: 0.0016s | Lamport: 4
 [C] Received | Sender: [A] | Topic: chat | Message: Malou | Latency: 0.0032s | Lamport: 3
 [A] Received | Sender: [A] | Topic: chat | Message: Malou | Latency: 0.0036s | Lamport: 5
+[A] Received | Sender: [B] | Topic: chat | Message: Hello | Latency: 0.0569s | Lamport: 1
+[A] Received | Sender: [B] | Topic: chat | Message: Hello | Latency: 0.0118s | Lamport: 1
+[A] Received | Sender: [B] | Topic: chat | Message: nihao | Latency: 0.0446s | Lamport: 1
+[A] Received | Sender: [B] | Topic: chat | Message: Ceshi | Latency: 0.0126s | Lamport: 1
+[A] Received | Sender: [B] | Topic: chat | Message: Ceshi | Latency: 0.0054s | Lamport: 2
+[A] Received | Sender: [B] | Topic: chat | Message: Ceshi | Latency: 0.0044s | Lamport: 3
+[A] Received | Sender: [B] | Topic: chat | Message: Ceshi | Latency: 0.0029s | Lamport: 4
+[A] Received | Sender: [B] | Topic: chat | Message: Ceshi | Latency: 0.0038s | Lamport: 5
+[A] Received | Sender: [B] | Topic: chat | Message: Ceshi | Latency: 0.0031s | Lamport: 6
+[A] Received | Sender: [B] | Topic: chat | Message: Ceshi | Latency: 0.0023s | Lamport: 7
+[A] Received | Sender: [B] | Topic: chat | Message: Ceshi | Latency: 0.0027s | Lamport: 8
+[A] Received | Sender: [B] | Topic: chat | Message: Ceshi | Latency: 0.0022s | Lamport: 9
+[A] Received | Sender: [B] | Topic: chat | Message: Ceshi | Latency: 0.0036s | Lamport: 10
