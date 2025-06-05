@@ -1,0 +1,52 @@
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0302s | Lamport: 1
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0099s | Lamport: 1
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0514s | Lamport: 2
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0335s | Lamport: 2
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0038s | Lamport: 3
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0092s | Lamport: 4
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0204s | Lamport: 3
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0040s | Lamport: 4
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 2.1052s | Lamport: 5
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 6.2288s | Lamport: 5
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0080s | Lamport: 6
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0216s | Lamport: 6
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0077s | Lamport: 7
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0070s | Lamport: 7
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0076s | Lamport: 8
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0081s | Lamport: 9
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0066s | Lamport: 10
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.0089s | Lamport: 8
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 0.6909s | Lamport: 9
+[C] Received | Sender: [B] | Topic: chat | Message: Hello | Latency: 0.0072s | Lamport: 11
+[C] Received | Sender: [B] | Topic: chat | Message: Hello | Latency: 0.0059s | Lamport: 10
+[C] Received | Sender: [B] | Topic: chat | Message: Hello | Latency: 0.0134s | Lamport: 12
+[C] Received | Sender: [B] | Topic: chat | Message: Hello | Latency: 0.0070s | Lamport: 11
+[C] Received | Sender: [B] | Topic: chat | Message: Hello | Latency: 0.0161s | Lamport: 13
+[C] Received | Sender: [B] | Topic: chat | Message: Hello | Latency: 0.0118s | Lamport: 12
+[C] Received | Sender: [B] | Topic: chat | Message: Hello | Latency: 0.0122s | Lamport: 14
+[C] Received | Sender: [B] | Topic: chat | Message: Hello | Latency: 0.0241s | Lamport: 15
+[C] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 0.0149s | Lamport: 4
+[C] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 0.0109s | Lamport: 7
+[C] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 0.0125s | Lamport: 13
+[C] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 0.0127s | Lamport: 8
+[C] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 0.0196s | Lamport: 14
+[C] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 9.3920s | Lamport: 15
+[C] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 0.0060s | Lamport: 4
+[C] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 0.0093s | Lamport: 7
+[C] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 5.7080s | Lamport: 16
+[C] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 5.7248s | Lamport: 17
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 4436.9599s | Lamport: 1
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 4381.2466s | Lamport: 2
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 4436.8863s | Lamport: 3
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 4436.8739s | Lamport: 4
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 4381.3183s | Lamport: 5
+[C] Received | Sender: [B] | Topic: chat | Message: Hello | Latency: 4362.9874s | Lamport: 6
+[C] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 841.8649s | Lamport: 7
+[C] Received | Sender: [A] | Topic: chat | Message: Hello | Latency: 4381.2965s | Lamport: 8
+[C] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 841.8619s | Lamport: 9
+[C] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 119.9611s | Lamport: 10
+[2025-06-05 04:23:06] [C] Publishing | Topic: chat | Message: Nihao | Lamport: 1
+[2025-06-05 04:23:06] [C] Publishing | Topic: chat | Message: Nihao | Lamport: 2
+[2025-06-05 04:23:06] [C] Publishing | Topic: chat | Message: Nihao | Lamport: 3
+[2025-06-05 04:23:06] [C] Publishing | Topic: chat | Message: Nihao | Lamport: 4
+[2025-06-05 04:23:06] [C] Publishing | Topic: chat | Message: Nihao | Lamport: 5
