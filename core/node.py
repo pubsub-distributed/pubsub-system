@@ -154,7 +154,7 @@ class Node:
             msg_payload["sender"] = msg.get("sender")
             msg_payload["timestamp"] = msg.get("timestamp")
             msg_payload["lamport"] = current_lamport
-            print("receiving message ...")
+            # print("receiving message ...")
             self.subscriber.receive({"topic": msg["topic"], "content": msg_payload})
 
             if self.mode == "leader" and self.is_leader() and msg["sender"] != self.node_id:

@@ -11,11 +11,11 @@ class Subscriber:
         msg_id = msg_payload.get("msg_id")
         lamport = msg_payload.get("lamport")
 
-        if msg_id in self.gossip.seen_msgs:
-            return
-        self.gossip.seen_msgs.add(msg_id)
-        self.gossip.save_seen_msg(msg_id, f"{self.node_id}_seen_msgs.log")
-        
+        # if msg_id in self.gossip.seen_msgs:
+        #     return
+        # self.gossip.seen_msgs.add(msg_id)
+        # self.gossip.save_seen_msg(msg_id, f"{self.node_id}_seen_msgs.log")
+
         publish_time = msg_payload.get("timestamp")
         if msg["topic"] in self.topics:
             now = time.time()
