@@ -38,7 +38,7 @@ class Node:
 
     def load_subscriptions(self):
         try:
-            with open(f"../subscription/subs_{self.node_id}.json", "r") as f:
+            with open(f"./subscription/subs_{self.node_id}.json", "r") as f:
                 topics = json.load(f)
             for topic in topics:
                 self.subscriber.subscribe(topic, self.broker)
@@ -46,8 +46,8 @@ class Node:
             pass
 
     def save_subscriptions(self):
-        os.makedirs("../subscription", exist_ok=True)
-        with open(f"../subscription/subs_{self.node_id}.json", "w") as f:
+        os.makedirs("./subscription", exist_ok=True)
+        with open(f"./subscription/subs_{self.node_id}.json", "w") as f:
             json.dump(list(self.subscriber.topics), f)
     
     def is_leader(self):
