@@ -1,4 +1,5 @@
 # node.py
+import os
 import asyncio
 import json
 import time
@@ -23,6 +24,8 @@ class Node:
         self.lamport = 0
         self.mode = mode
         self.leader_id = self.calc_leader()
+        log_path = "./output/node_latency.log"
+        os.makedirs(os.path.dirname(log_path), exist_ok=True)
         print(f"[{self.node_id}] Leader is {self.leader_id}")
     
     def calc_leader(self, alive_peers=None):
@@ -95,7 +98,11 @@ class Node:
             "msg_id": msg_id,
             "lamport": self.lamport
         }
-        print(f"[{self.node_id}] Publishing | Topic: {topic} | Lamport: {self.lamport}")
+
+        with open("./output/node_latency.log", "a") as f:
+            now = time.strftime("%Y-%m-%d %H:%M:%S")
+            f.write(f"[{now}] [{self.node_id}] Publishing | Topic: {topic} | Message: {message} | Lamport: {self.lamport}\n")
+        print(f"[{now}] [{self.node_id}] Publishing | Topic: {topic} | Message: {message} | Lamport: {self.lamport}\n")
         # await self.gossip.broadcast(msg)
 
         if self.mode == "gossip":
