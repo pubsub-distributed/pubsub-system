@@ -63,9 +63,9 @@ class GossipAgent:
             )
             try:
                 await stub.SendMessage(grpc_message)
-                # response = await stub.SendMessage(grpc_message)
-                # if response.success:
-                #     print(f"[{self.node_id}] sent message to {peer_id}")
+                response = await stub.SendMessage(grpc_message)
+                if response.success:
+                    print(f"[{self.node_id}] sent message to {peer_id}")
                 if self.peer_unavailable[peer_id]:
                     print(f"[{self.node_id}] Peer {peer_id} back online.")
                 self.peer_unavailable[peer_id] = False

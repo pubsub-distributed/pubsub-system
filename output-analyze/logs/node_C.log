@@ -55,3 +55,13 @@
 [2025-06-05 04:39:42] [C] Publishing | Topic: chat | Message: hello from c | Lamport: 3
 [2025-06-05 04:39:42] [C] Publishing | Topic: chat | Message: hello from c | Lamport: 4
 [2025-06-05 04:39:42] [C] Publishing | Topic: chat | Message: hello from c | Lamport: 5
+[2025-06-05 05:39:45] [C] Publishing | Topic: chat | Message: hello from C | Lamport: 1
+[2025-06-05 05:39:45] [C] Publishing | Topic: chat | Message: hello from C | Lamport: 2
+[2025-06-05 05:39:45] [C] Publishing | Topic: chat | Message: hello from C | Lamport: 3
+[2025-06-05 05:39:45] [C] Publishing | Topic: chat | Message: hello from C | Lamport: 4
+[2025-06-05 05:39:45] [C] Publishing | Topic: chat | Message: hello from C | Lamport: 5
+[2025-06-05 05:40:18] [C] Publishing | Topic: chat | Message: hello from C | Lamport: 6
+[2025-06-05 05:40:18] [C] Publishing | Topic: chat | Message: hello from C | Lamport: 7
+[2025-06-05 05:40:18] [C] Publishing | Topic: chat | Message: hello from C | Lamport: 8
+[2025-06-05 05:40:18] [C] Publishing | Topic: chat | Message: hello from C | Lamport: 9
+[2025-06-05 05:40:18] [C] Publishing | Topic: chat | Message: hello from C | Lamport: 10
