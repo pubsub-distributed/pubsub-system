@@ -24,6 +24,8 @@ class Node:
         self.lamport = 0
         self.mode = mode
         self.leader_id = self.calc_leader()
+        self.load_subscriptions()
+
         log_path = "./output/node_latency.log"
         
         os.makedirs(os.path.dirname(log_path), exist_ok=True)
@@ -34,6 +36,20 @@ class Node:
             alive_peers = self.peers
         return min([self.node_id] + alive_peers)
 
+    def load_subscriptions(self):
+        try:
+            with open(f"../subscription/subs_{self.node_id}.json", "r") as f:
+                topics = json.load(f)
+            for topic in topics:
+                self.subscriber.subscribe(topic, self.broker)
+        except Exception:
+            pass
+
+    def save_subscriptions(self):
+        os.makedirs("../subscription", exist_ok=True)
+        with open(f"../subscription/subs_{self.node_id}.json", "w") as f:
+            json.dump(list(self.subscriber.topics), f)
+    
     def is_leader(self):
         return self.node_id == self.leader_id
     
@@ -126,6 +142,7 @@ class Node:
         if not self.is_subscriber:
             raise Exception(f"[{self.node_id}] is not a subscriber.")
         self.subscriber.subscribe(topic, self.broker)
+        self.save_subscriptions()
     
     def get_subscribe(self):
         return list(self.subscriber.topics)
@@ -133,6 +150,7 @@ class Node:
     def unsubscribe(self, topic):
         if self.is_subscriber:
             self.subscriber.unsubscribe(topic, self.broker)
+            self.save_subscriptions()
 
     def receive(self, msg):
         if not self.is_subscriber:

@@ -1,92 +1,124 @@
 
-=== Sender [C] (4000 sent messages) ===
+=== Sender [H] (1500 sent messages) ===
 
   Node [A] statistics:
-    Correctly received: 4000
+    Correctly received: 1500
     Lost (not received): 0
     Duplicates: 0
     Accuracy: 100.00%
 
   Node [B] statistics:
-    Correctly received: 4000
+    Correctly received: 1500
     Lost (not received): 0
     Duplicates: 0
     Accuracy: 100.00%
 
   Node [C] statistics:
-    Correctly received: 3929
-    Lost (not received): 71
+    Correctly received: 1500
+    Lost (not received): 0
     Duplicates: 0
-    Accuracy: 98.22%
-    Lost msg_ids:
-      083ad79822e7d5e6a0dd07bf47bfa0670d29f12c2f3f27e065d30f1b975027e4  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8647 | msg_id: 083ad79822e7d5e6a0dd07bf47bfa0670d29f12c2f3f27e065d30f1b975027e4)
-      0c5c2ae7601fe4f2a300aae11343be6f7f3208f4559e8fd187642e10962342dc  (Sent: [2025-06-05 15:25:08] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8739 | msg_id: 0c5c2ae7601fe4f2a300aae11343be6f7f3208f4559e8fd187642e10962342dc)
-      10ea1d3bf057feb9a98709912ace88a12bf8872f2fd523a33ed687bb92a25309  (Sent: [2025-06-05 15:25:06] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8528 | msg_id: 10ea1d3bf057feb9a98709912ace88a12bf8872f2fd523a33ed687bb92a25309)
-      198e47c96d58bd7075d7368e3aeb330cff81789dd88d23fe48b8335db804d62c  (Sent: [2025-06-05 15:25:09] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 9061 | msg_id: 198e47c96d58bd7075d7368e3aeb330cff81789dd88d23fe48b8335db804d62c)
-      26699e15311a228f0d60e9d3a7a49df6a70652f547a426be70753f7f7dc7f913  (Sent: [2025-06-05 15:25:05] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8362 | msg_id: 26699e15311a228f0d60e9d3a7a49df6a70652f547a426be70753f7f7dc7f913)
-      27fb7bdee1b5586615fa8d7ddd5e9deadb818fe9e34a1d92af6cac08c5a50ca9  (Sent: [2025-06-05 15:25:06] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8529 | msg_id: 27fb7bdee1b5586615fa8d7ddd5e9deadb818fe9e34a1d92af6cac08c5a50ca9)
-      292e2ef5d5d80f247b1b51bb1980b8743a8f5e78dd2fabf8ea0dc26efb09ab87  (Sent: [2025-06-05 15:25:06] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8433 | msg_id: 292e2ef5d5d80f247b1b51bb1980b8743a8f5e78dd2fabf8ea0dc26efb09ab87)
-      29ccf285fb7ac3161e14dcba61806c2f85f24d49b9caceb84a76e11704f436b1  (Sent: [2025-06-05 15:25:09] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 9059 | msg_id: 29ccf285fb7ac3161e14dcba61806c2f85f24d49b9caceb84a76e11704f436b1)
-      2ba30ac84c475f5e43cea843202c9279335d5f1f6821a4d16f129c7cf3ab0667  (Sent: [2025-06-05 15:25:08] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8852 | msg_id: 2ba30ac84c475f5e43cea843202c9279335d5f1f6821a4d16f129c7cf3ab0667)
-      2e06a4f64d4f218f2575ac7eabb323a15755492f14f93055fab3456dfe6ad5ef  (Sent: [2025-06-05 15:25:05] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8379 | msg_id: 2e06a4f64d4f218f2575ac7eabb323a15755492f14f93055fab3456dfe6ad5ef)
-      2fccefb9f1685f464bdf7a0e5dfa234f8d405627f62903b5f1ac39df8100cbee  (Sent: [2025-06-05 15:25:05] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8376 | msg_id: 2fccefb9f1685f464bdf7a0e5dfa234f8d405627f62903b5f1ac39df8100cbee)
-      328f219e68f1e42712b88cb1c6ee1b0513f2772dd3cc1d96336bbaea4c649105  (Sent: [2025-06-05 15:25:09] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8917 | msg_id: 328f219e68f1e42712b88cb1c6ee1b0513f2772dd3cc1d96336bbaea4c649105)
-      37c79b46b0e26c60743e0882d7d4b9e377def0644d9940c5cf245c183caafa00  (Sent: [2025-06-05 15:25:06] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8462 | msg_id: 37c79b46b0e26c60743e0882d7d4b9e377def0644d9940c5cf245c183caafa00)
-      38a0216c202cba32cd93eafedca63e3522ea94ce03503c0110940440098c2da5  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8720 | msg_id: 38a0216c202cba32cd93eafedca63e3522ea94ce03503c0110940440098c2da5)
-      403503c0573896bf80fd4fad52c578f8159b7821d32d7c467077da87cb0335c3  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8682 | msg_id: 403503c0573896bf80fd4fad52c578f8159b7821d32d7c467077da87cb0335c3)
-      42694d7ff87821e2b63c028602885620c57c8d11d1dd4a8c507d58a67ecfd8dc  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8571 | msg_id: 42694d7ff87821e2b63c028602885620c57c8d11d1dd4a8c507d58a67ecfd8dc)
-      43c8d0342dde85f2a92b26cf6d90e1b9a1b6686ae319165fd7be0f9e58839114  (Sent: [2025-06-05 15:25:06] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8459 | msg_id: 43c8d0342dde85f2a92b26cf6d90e1b9a1b6686ae319165fd7be0f9e58839114)
-      43e7f65635c32e3c1e17e56a7e92f35eb93f6b435df6f9f7da3f495487663b79  (Sent: [2025-06-05 15:25:06] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8516 | msg_id: 43e7f65635c32e3c1e17e56a7e92f35eb93f6b435df6f9f7da3f495487663b79)
-      447b1aecaf9199d7b0afc59824d25375d1a70fa238a7617210541fa114c626a3  (Sent: [2025-06-05 15:25:06] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8540 | msg_id: 447b1aecaf9199d7b0afc59824d25375d1a70fa238a7617210541fa114c626a3)
-      4b0aaebf223bc960a923fc06a793bab828be3ff81b5afaaf818faf297f37d28e  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8627 | msg_id: 4b0aaebf223bc960a923fc06a793bab828be3ff81b5afaaf818faf297f37d28e)
-      5219639e8006bcf7866e06adc9f28cedcea1c8363823ce48e58bc037edd184ed  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8572 | msg_id: 5219639e8006bcf7866e06adc9f28cedcea1c8363823ce48e58bc037edd184ed)
-      5340cc1e01f7de67dac85b326851a1714de1d60bd08a58ee7bea88e3c9bf0e41  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8595 | msg_id: 5340cc1e01f7de67dac85b326851a1714de1d60bd08a58ee7bea88e3c9bf0e41)
-      5414cb267ad6c28d2f565c95b7caa4e741a7d3ba55ec695170e12ce3a85fed77  (Sent: [2025-06-05 15:25:09] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8949 | msg_id: 5414cb267ad6c28d2f565c95b7caa4e741a7d3ba55ec695170e12ce3a85fed77)
-      57883a4ca2d1d081c1064d34b90f357c45375f6818a863e9ded31196f85b013f  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8664 | msg_id: 57883a4ca2d1d081c1064d34b90f357c45375f6818a863e9ded31196f85b013f)
-      59c75b1abb8352e875c0e83dfe3bdc74b961a51b66d0baee73f111b580f4957a  (Sent: [2025-06-05 15:25:05] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8267 | msg_id: 59c75b1abb8352e875c0e83dfe3bdc74b961a51b66d0baee73f111b580f4957a)
-      62293943452b96e6c16196150e467b53eac5a04dfbb9e60ae21777ca4daef949  (Sent: [2025-06-05 15:25:08] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8861 | msg_id: 62293943452b96e6c16196150e467b53eac5a04dfbb9e60ae21777ca4daef949)
-      65ac657b81f3b039309b45b18c566b79acf8f71a4fb7311c25b077e4e1fad2fe  (Sent: [2025-06-05 15:25:08] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8768 | msg_id: 65ac657b81f3b039309b45b18c566b79acf8f71a4fb7311c25b077e4e1fad2fe)
-      6933dc9495000c6e961d3631ccd6441ba48ae55858789fa85c3c1f8753beec40  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8660 | msg_id: 6933dc9495000c6e961d3631ccd6441ba48ae55858789fa85c3c1f8753beec40)
-      6a4295a10cb3114e73f219be7881d185677cf2f0f595d5e553d569489d3b8de7  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8668 | msg_id: 6a4295a10cb3114e73f219be7881d185677cf2f0f595d5e553d569489d3b8de7)
-      6f6d1cc7528a433407dd41fe6af1221dd5c1e6aefbd29d34a6bf69c58217af64  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8601 | msg_id: 6f6d1cc7528a433407dd41fe6af1221dd5c1e6aefbd29d34a6bf69c58217af64)
-      6fca77301e8e9dad713431bde5d2e6051f3831946fb56c45b4143400ab036ac5  (Sent: [2025-06-05 15:25:06] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8438 | msg_id: 6fca77301e8e9dad713431bde5d2e6051f3831946fb56c45b4143400ab036ac5)
-      6ffa33252b5102be34a1cc8d2c3469a9e9d69ceb00152933c4fa73bdf85faa72  (Sent: [2025-06-05 15:25:09] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8997 | msg_id: 6ffa33252b5102be34a1cc8d2c3469a9e9d69ceb00152933c4fa73bdf85faa72)
-      70c704417feac28e91a82a2192c67a5941aea47f582985cee86046034fb5d323  (Sent: [2025-06-05 15:25:09] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 9057 | msg_id: 70c704417feac28e91a82a2192c67a5941aea47f582985cee86046034fb5d323)
-      72be4a18bba71e96f4ac190b61b70882cda91263d3365ec9af65155b2d4e22f2  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8699 | msg_id: 72be4a18bba71e96f4ac190b61b70882cda91263d3365ec9af65155b2d4e22f2)
-      7672dca04c230a6b6c4fc56d66f957e7460d9c9b28bbffe7198cb687a31b3418  (Sent: [2025-06-05 15:25:05] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8299 | msg_id: 7672dca04c230a6b6c4fc56d66f957e7460d9c9b28bbffe7198cb687a31b3418)
-      7c686ce65e5fafdeac63d4d765c7bb4f2a64ef1509b0950d9552eae286b1c96b  (Sent: [2025-06-05 15:25:04] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8153 | msg_id: 7c686ce65e5fafdeac63d4d765c7bb4f2a64ef1509b0950d9552eae286b1c96b)
-      7dc0cba06ff429016947977f1222ecb2b48e46cdf78a71e2b471c5fca75cc5c0  (Sent: [2025-06-05 15:25:08] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8744 | msg_id: 7dc0cba06ff429016947977f1222ecb2b48e46cdf78a71e2b471c5fca75cc5c0)
-      7ea4fcf14bcdacd8c0c1844b4979b2505328939ed291b9a5b28ccfc480c70840  (Sent: [2025-06-05 15:25:09] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8946 | msg_id: 7ea4fcf14bcdacd8c0c1844b4979b2505328939ed291b9a5b28ccfc480c70840)
-      82a3137b92cff501153e76fb803472103ac2c7508dc10ddd4ce045c80416e6f6  (Sent: [2025-06-05 15:25:09] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 9054 | msg_id: 82a3137b92cff501153e76fb803472103ac2c7508dc10ddd4ce045c80416e6f6)
-      8701ec7ef0671219234f6a8501a192d2a8d49e14a0d83390512124b7d3402cf3  (Sent: [2025-06-05 15:25:09] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 9063 | msg_id: 8701ec7ef0671219234f6a8501a192d2a8d49e14a0d83390512124b7d3402cf3)
-      9245e6548c6d971f3ceda31855b4177ea307b30aee3ac0e3103dfd875bf628b3  (Sent: [2025-06-05 15:25:09] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 9065 | msg_id: 9245e6548c6d971f3ceda31855b4177ea307b30aee3ac0e3103dfd875bf628b3)
-      92a6a8dd702d4de0a30da53ddd847755f213e5b378f1c65e7d8ec646f2014fcc  (Sent: [2025-06-05 15:25:09] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8963 | msg_id: 92a6a8dd702d4de0a30da53ddd847755f213e5b378f1c65e7d8ec646f2014fcc)
-      a80df61e275be19774e84a75aa9a6f39e7df2d59cc5123434567bd4c29986e0c  (Sent: [2025-06-05 15:25:04] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8082 | msg_id: a80df61e275be19774e84a75aa9a6f39e7df2d59cc5123434567bd4c29986e0c)
-      adc955219a53cf9179578fa7a79c2bdf9dd8ab081981a30ddb42af526c390427  (Sent: [2025-06-05 15:25:05] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8261 | msg_id: adc955219a53cf9179578fa7a79c2bdf9dd8ab081981a30ddb42af526c390427)
-      ae1a5877e0172f1bc6994fb958a867b73a32b8e52592af12b8053f9396130773  (Sent: [2025-06-05 15:25:04] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8171 | msg_id: ae1a5877e0172f1bc6994fb958a867b73a32b8e52592af12b8053f9396130773)
-      aea24c9dc3d0884f47971eac669f65e0a8f4866872d4bd6c6af9c47a158ab90e  (Sent: [2025-06-05 15:25:08] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8815 | msg_id: aea24c9dc3d0884f47971eac669f65e0a8f4866872d4bd6c6af9c47a158ab90e)
-      b0ea6103f14a150652d233f48d53165e6cd83ae9f50480d2de0cb9e57aa4385a  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8676 | msg_id: b0ea6103f14a150652d233f48d53165e6cd83ae9f50480d2de0cb9e57aa4385a)
-      b43bfdf9f22833be244a0fd7e69f16e6f0e78e714f0ebc1bb73132151d098cf2  (Sent: [2025-06-05 15:25:04] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8177 | msg_id: b43bfdf9f22833be244a0fd7e69f16e6f0e78e714f0ebc1bb73132151d098cf2)
-      b5c6a8f21fedf1beca194a85d99820fc0f85a48e4c224a857d1c59dcd670dcaf  (Sent: [2025-06-05 15:25:08] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8825 | msg_id: b5c6a8f21fedf1beca194a85d99820fc0f85a48e4c224a857d1c59dcd670dcaf)
-      b6374ce7d0e58be5f692859b9455d55e4402bda3996e5d0b83d2b3f853de4440  (Sent: [2025-06-05 15:25:05] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8248 | msg_id: b6374ce7d0e58be5f692859b9455d55e4402bda3996e5d0b83d2b3f853de4440)
-      b6dbfd9e098a8652930c7d8ca7903430b6b575761b2f213d2d7017f7e25db51c  (Sent: [2025-06-05 15:25:06] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8388 | msg_id: b6dbfd9e098a8652930c7d8ca7903430b6b575761b2f213d2d7017f7e25db51c)
-      bfd02509e968b4f418c6ca67660391966b4e313211989501a9d28fcea9e085b3  (Sent: [2025-06-05 15:25:08] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8757 | msg_id: bfd02509e968b4f418c6ca67660391966b4e313211989501a9d28fcea9e085b3)
-      bff424dbf4b6d446bd6047559cef713a7ec5d29897f6de6a685f87ae7be54fad  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8564 | msg_id: bff424dbf4b6d446bd6047559cef713a7ec5d29897f6de6a685f87ae7be54fad)
-      c9992a0709fb2c61ad6b48f228727ddbb80b9d9a5a91faa5c357ce22234fa36e  (Sent: [2025-06-05 15:25:06] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8545 | msg_id: c9992a0709fb2c61ad6b48f228727ddbb80b9d9a5a91faa5c357ce22234fa36e)
-      cb995fa0da62d691a2eb246b0e000a0be769848964749dd8382ffea2816020ad  (Sent: [2025-06-05 15:25:08] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8755 | msg_id: cb995fa0da62d691a2eb246b0e000a0be769848964749dd8382ffea2816020ad)
-      d2be770aeeb4b634f8cf20b11aedbf50d971daf19c04a9417a734ef4b51eead8  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8654 | msg_id: d2be770aeeb4b634f8cf20b11aedbf50d971daf19c04a9417a734ef4b51eead8)
-      d42793cc1fbd695e05edde2479cf43dc7ee5cf6a76a14301955f05e9ef35c394  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8724 | msg_id: d42793cc1fbd695e05edde2479cf43dc7ee5cf6a76a14301955f05e9ef35c394)
-      d5063b36fd6c75693b3693fb4cfe33f2024ed4a4c14fb50871d2f101467d62e4  (Sent: [2025-06-05 15:25:09] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 9067 | msg_id: d5063b36fd6c75693b3693fb4cfe33f2024ed4a4c14fb50871d2f101467d62e4)
-      d936cee41e5bbb2a29b0dd23d4d39ace3f6fea77543687948bc67596c1d28ef6  (Sent: [2025-06-05 15:25:06] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8432 | msg_id: d936cee41e5bbb2a29b0dd23d4d39ace3f6fea77543687948bc67596c1d28ef6)
-      da41d7cbbfeab6cdf0d94c23ddc38a8b8ca0c96a6f26a89e46add4a126b069b9  (Sent: [2025-06-05 15:25:04] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8188 | msg_id: da41d7cbbfeab6cdf0d94c23ddc38a8b8ca0c96a6f26a89e46add4a126b069b9)
-      da549cb941de478312fd4d717e21627c31a001cee3e1f30193aa21f0dc3858f3  (Sent: [2025-06-05 15:25:08] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8789 | msg_id: da549cb941de478312fd4d717e21627c31a001cee3e1f30193aa21f0dc3858f3)
-      dde6754d02bb1f0dcc978077f8ef89aa22ba224a0bbc97ce46955c53251d9e67  (Sent: [2025-06-05 15:25:08] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8802 | msg_id: dde6754d02bb1f0dcc978077f8ef89aa22ba224a0bbc97ce46955c53251d9e67)
-      deefa5df4013893a8e158d740462a7cbc451d860a8d17c573fb97b58975a971f  (Sent: [2025-06-05 15:25:09] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 9070 | msg_id: deefa5df4013893a8e158d740462a7cbc451d860a8d17c573fb97b58975a971f)
-      dfcd434bb2176e252bd5a85db4e0457fe9d8fe68a02b83d3cafac0f13f8f466e  (Sent: [2025-06-05 15:25:07] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8599 | msg_id: dfcd434bb2176e252bd5a85db4e0457fe9d8fe68a02b83d3cafac0f13f8f466e)
-      e59e3062fe08dde59fdc55db381322e9ddb0dc06843161f9468509ef3f0893e3  (Sent: [2025-06-05 15:25:04] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8166 | msg_id: e59e3062fe08dde59fdc55db381322e9ddb0dc06843161f9468509ef3f0893e3)
-      eb32b843b8b3af975d14d9cb9de086859aa4c8c37cb5d52b440ccaee1cb8e35b  (Sent: [2025-06-05 15:25:05] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8351 | msg_id: eb32b843b8b3af975d14d9cb9de086859aa4c8c37cb5d52b440ccaee1cb8e35b)
-      ee84ab6f2dadd7ba9d007147b5b61f297f8dab92698b3ee617902ab0b503ee01  (Sent: [2025-06-05 15:25:09] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8995 | msg_id: ee84ab6f2dadd7ba9d007147b5b61f297f8dab92698b3ee617902ab0b503ee01)
-      f4a1519f2b7086bb96c73269af1a22151723bf292a7b5cdecb1ece88194fc176  (Sent: [2025-06-05 15:25:04] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8189 | msg_id: f4a1519f2b7086bb96c73269af1a22151723bf292a7b5cdecb1ece88194fc176)
-      f76f09f37c4ed7ae635795a2f125aae192a25e89501c52151af4ed89f6184ea2  (Sent: [2025-06-05 15:25:04] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8115 | msg_id: f76f09f37c4ed7ae635795a2f125aae192a25e89501c52151af4ed89f6184ea2)
-      f99b94660c27f13b1cea2fdd2cb4d69ec191c2ff63652f8d99690fbfb2b665b7  (Sent: [2025-06-05 15:25:05] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8225 | msg_id: f99b94660c27f13b1cea2fdd2cb4d69ec191c2ff63652f8d99690fbfb2b665b7)
-      fb70b6e1388fb18e6a8f9b43fefd9db71e7a33326c444855fbcd8057656b43ca  (Sent: [2025-06-05 15:25:05] [C] Publishing | Topic: chat | Message: Say hello from C | Lamport: 8340 | msg_id: fb70b6e1388fb18e6a8f9b43fefd9db71e7a33326c444855fbcd8057656b43ca)
+    Accuracy: 100.00%
+
+  Node [D] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+  Node [E] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+  Node [F] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+  Node [G] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+  Node [H] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+  Node [I] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+  Node [J] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+=== Sender [I] (1500 sent messages) ===
+
+  Node [A] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+  Node [B] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+  Node [C] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+  Node [D] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+  Node [E] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+  Node [F] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+  Node [G] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+  Node [H] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+  Node [I] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%
+
+  Node [J] statistics:
+    Correctly received: 1500
+    Lost (not received): 0
+    Duplicates: 0
+    Accuracy: 100.00%

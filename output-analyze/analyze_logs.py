@@ -6,7 +6,6 @@ import numpy as np
 log_dir = "./logs"
 latency_pattern = re.compile(r"Latency:\s*([0-9.]+)s")
 sender_pattern = re.compile(r"Sender:\s*\[([A-Z])\]")
-# Match timestamp like [2025-06-05 07:23:14]
 time_pattern = re.compile(r"\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]")
 
 def percentile(arr, p):
@@ -15,11 +14,19 @@ def percentile(arr, p):
         return 0
     return np.percentile(arr, p)
 
+# Collect all node_X.log (not sender)
+log_files = []
+for filename in os.listdir(log_dir):
+    # Only keep node_X.log, X in A-J, and skip sender logs
+    if re.fullmatch(r"node_[A-J]\.log", filename):
+        log_files.append(filename)
+
+# Sort logs as node_A, node_B, ..., node_J
+log_files.sort(key=lambda x: x[5])  # node_X.log, X is at position 5
+
 output_lines = []
 
-for filename in os.listdir(log_dir):
-    if not filename.endswith(".log"):
-        continue
+for filename in log_files:
     path = os.path.join(log_dir, filename)
     latencies = []
     senders = {}
@@ -38,7 +45,6 @@ for filename in os.listdir(log_dir):
             # Extract timestamp
             m3 = time_pattern.search(line)
             if m3:
-                # Make sure the timezone matches your log's timezone
                 t = datetime.strptime(m3.group(1), "%Y-%m-%d %H:%M:%S")
                 times.append(t)
 
