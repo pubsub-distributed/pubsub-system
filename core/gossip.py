@@ -41,9 +41,9 @@ class GossipAgent:
         if msg_id in self.seen_msgs:
             # print(f"[{self.node_id}] broadcast(): msg_id {msg_id} already seen.")
             return
-        self.seen_msgs.add(msg_id)
-        self.save_seen_msg(msg_id, f"{self.node_id}_seen_msgs.log")
-        self.msg_store[msg_id] = message
+        # self.seen_msgs.add(msg_id)
+        # self.save_seen_msg(msg_id, f"{self.node_id}_seen_msgs.log")
+        # self.msg_store[msg_id] = message
         selected = random.sample(self.peers, min(fanout, len(self.peers)))
         for peer_id in selected:
             await self.send(peer_id, message)
