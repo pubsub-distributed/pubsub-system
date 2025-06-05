@@ -105,7 +105,6 @@ class Node:
         print(f"[{now}] [{self.node_id}] Publishing | Topic: {topic} | Message: {message} | Lamport: {self.lamport}\n")
 
         if self.mode == "gossip":
-            self.receive(msg)
             await self.gossip.broadcast(msg)
         elif self.mode == "leader":
             if self.is_leader():

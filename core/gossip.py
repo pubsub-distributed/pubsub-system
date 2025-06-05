@@ -47,6 +47,9 @@ class GossipAgent:
         selected = random.sample(self.peers, min(fanout, len(self.peers)))
         for peer_id in selected:
             await self.send(peer_id, message)
+        
+        if self.node:
+            await self.node.receive(message)
 
     async def send(self, peer_id, message):
         peer_addr = self.get_peer_addr(peer_id)
