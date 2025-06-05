@@ -108,7 +108,10 @@ class GossipAgent:
         their_set = set(their_msg_ids)
         missing = self.seen_msgs - their_set
         for msg_id in missing:
-            await self.send(peer_id, self.msg_store[msg_id])
+            if msg_id in self.msg_store:
+                await self.send(peer_id, self.msg_store[msg_id])
+            else:
+                print(f"[{self.node_id}] Warning: asked to resend msg_id={msg_id} but not found in msg_store")
     
     async def ping(self, peer_id):
         peer_addr = self.get_peer_addr(peer_id)
