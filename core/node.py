@@ -139,6 +139,7 @@ class Node:
             msg_payload = json.loads(decrypted_payload)
 
             msg_id = msg.get("msg_id")
+            
             if msg_id in self.gossip.seen_msgs:
                 return
 
