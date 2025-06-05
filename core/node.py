@@ -207,6 +207,7 @@ def create_app(node: Node):
         return web.json_response({
             "node_id": node.node_id,
             "subscriptions": node.get_subscribe(),
+            "leader_id": node.leader_id, 
         })
     
     @routes.post('/switch_mode')

@@ -3,6 +3,7 @@ import sys
 import asyncio
 import argparse
 import json
+import aiohttp
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'core'))
 
@@ -39,6 +40,24 @@ def parse_peer_addrs(peers_str=None, peers_config=None):
     print(f"Parsed peer addresses: {peers}")  # Debug log
     return peers
 
+async def fetch_leader_from_peers(node, peer_addrs):
+    for peer_id, (ip, grpc_port) in peer_addrs.items():
+        if peer_id == node.node_id:
+            continue
+        http_port = int(grpc_port) - 1000  # 你的 gRPC 端口-1000=HTTP端口
+        url = f"http://{ip}:{http_port}/status"
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url, timeout=2) as resp:
+                    if resp.status == 200:
+                        info = await resp.json()
+                        leader = info.get("leader_id")
+                        if leader:
+                            return leader
+        except Exception:
+            continue
+    return None
+
 async def main(args):
     node_id = args.node_id
     http_port = args.port
@@ -58,6 +77,13 @@ async def main(args):
     mode = args.mode
     node = Node(node_id, all_peers, broker, peer_addrs=peer_addrs,
                 is_publisher=True, is_subscriber=True, mode=mode)
+    
+    leader_from_peers = await fetch_leader_from_peers(node, peer_addrs)
+    if leader_from_peers:
+        print(f"Found leader from peers: {leader_from_peers}, overriding local leader.")
+        node.leader_id = leader_from_peers
+    else:
+        print(f"No leader found from peers, using local leader selection ({node.leader_id})")
 
     print(f"Starting gRPC server on port {grpc_port}")
     grpc_task = asyncio.create_task(serve(node, grpc_port))
