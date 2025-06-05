@@ -145,6 +145,7 @@ class Node:
 
             self.gossip.seen_msgs.add(msg_id)
             self.gossip.save_seen_msg(msg_id, f"{self.node_id}_seen_msgs.log")
+            self.gossip.msg_store[msg_id] = msg
             # if msg_id not in self.gossip.seen_msgs:
 
             received_lamport = msg.get("lamport", 0)
