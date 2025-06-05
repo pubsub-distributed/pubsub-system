@@ -1,30 +1,33 @@
 ==== node_A.log ====
-Total messages: 0
-Senders breakdown: {}
-Average latency:  0.00 ms
-Min latency:      0.00 ms
-Max latency:      0.00 ms
-Std deviation:    0.00 ms
-P95 latency:      0.00 ms
-P99 latency:      0.00 ms
+Total messages: 1000
+Senders breakdown: {'C': 1000}
+Average latency:  4.28 ms
+Min latency:      2.00 ms
+Max latency:      9.40 ms
+Std deviation:    1.54 ms
+P95 latency:      6.70 ms
+P99 latency:      7.40 ms
+Throughput:       111.11 messages/sec
 
 ==== node_C.log ====
-Total messages: 0
-Senders breakdown: {}
-Average latency:  0.00 ms
-Min latency:      0.00 ms
-Max latency:      0.00 ms
-Std deviation:    0.00 ms
-P95 latency:      0.00 ms
-P99 latency:      0.00 ms
+Total messages: 1000
+Senders breakdown: {'C': 1000}
+Average latency:  6.95 ms
+Min latency:      5.00 ms
+Max latency:      12.40 ms
+Std deviation:    0.89 ms
+P95 latency:      8.50 ms
+P99 latency:      9.60 ms
+Throughput:       111.11 messages/sec
 
 ==== node_B.log ====
-Total messages: 0
-Senders breakdown: {}
-Average latency:  0.00 ms
-Min latency:      0.00 ms
-Max latency:      0.00 ms
-Std deviation:    0.00 ms
-P95 latency:      0.00 ms
-P99 latency:      0.00 ms
+Total messages: 1000
+Senders breakdown: {'C': 1000}
+Average latency:  4.36 ms
+Min latency:      1.90 ms
+Max latency:      11.30 ms
+Std deviation:    1.91 ms
+P95 latency:      7.20 ms
+P99 latency:      8.20 ms
+Throughput:       111.11 messages/sec
 

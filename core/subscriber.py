@@ -23,7 +23,7 @@ class Subscriber:
             
             with open(f"./output/node_latency.log", "a") as f:
                 now = time.strftime("%Y-%m-%d %H:%M:%S")
-                f.write(f"[{now}] [{self.node_id}] Received | Sender: [{msg_payload.get('sender')}] | Topic: {msg['topic']} | Message: {msg_payload.get('message')} | Latency: {latency:.4f}s | Lamport: {lamport}\n")
+                f.write(f"[{now}] [{self.node_id}] Received | Sender: [{msg_payload.get('sender')}] | Topic: {msg['topic']} | Message: {msg_payload.get('message')} | Latency: {latency:.4f}s | Lamport: {lamport}| msg_id: {msg_id}\n")
             print(f"[{now}] [{self.node_id}] Received | Sender: [{msg_payload.get('sender')}] | Topic: {msg['topic']} | Message: {msg_payload.get('message')} | Latency: {latency:.4f}s | Lamport: {lamport}\n")
 
     def subscribe(self, topic, broker):

@@ -25,6 +25,7 @@ class Node:
         self.mode = mode
         self.leader_id = self.calc_leader()
         log_path = "./output/node_latency.log"
+        
         os.makedirs(os.path.dirname(log_path), exist_ok=True)
         print(f"[{self.node_id}] Leader is {self.leader_id}")
     
@@ -99,9 +100,12 @@ class Node:
             "lamport": self.lamport
         }
 
-        with open("./output/node_latency.log", "a") as f:
+        sender_log_path = "./output/sender.log"
+        os.makedirs(os.path.dirname(sender_log_path), exist_ok=True)
+
+        with open("./output/sender.log", "a") as f:
             now = time.strftime("%Y-%m-%d %H:%M:%S")
-            f.write(f"[{now}] [{self.node_id}] Publishing | Topic: {topic} | Message: {message} | Lamport: {self.lamport}\n")
+            f.write(f"[{now}] [{self.node_id}] Publishing | Topic: {topic} | Message: {message} | Lamport: {self.lamport} | msg_id: {msg_id}\n")
         print(f"[{now}] [{self.node_id}] Publishing | Topic: {topic} | Message: {message} | Lamport: {self.lamport}\n")
 
         if self.mode == "gossip":

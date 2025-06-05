@@ -1,10 +1,13 @@
 import os
 import re
+from datetime import datetime
 import numpy as np
 
 log_dir = "./logs"
 latency_pattern = re.compile(r"Latency:\s*([0-9.]+)s")
 sender_pattern = re.compile(r"Sender:\s*\[([A-Z])\]")
+# Match timestamp like [2025-06-05 07:23:14]
+time_pattern = re.compile(r"\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]")
 
 def percentile(arr, p):
     """Compute the pth percentile of a list."""
@@ -20,9 +23,10 @@ for filename in os.listdir(log_dir):
     path = os.path.join(log_dir, filename)
     latencies = []
     senders = {}
+    times = []
     with open(path, "r") as f:
         for line in f:
-            # Extract latency values from log lines
+            # Extract latency value from log line
             m = latency_pattern.search(line)
             if m:
                 lat = float(m.group(1))
@@ -31,6 +35,12 @@ for filename in os.listdir(log_dir):
             m2 = sender_pattern.search(line)
             if m2:
                 senders[m2.group(1)] = senders.get(m2.group(1), 0) + 1
+            # Extract timestamp
+            m3 = time_pattern.search(line)
+            if m3:
+                # Make sure the timezone matches your log's timezone
+                t = datetime.strptime(m3.group(1), "%Y-%m-%d %H:%M:%S")
+                times.append(t)
 
     count = len(latencies)
     avg_latency = sum(latencies) / count if count else 0
@@ -39,6 +49,13 @@ for filename in os.listdir(log_dir):
     std_latency = np.std(latencies) if latencies else 0
     p95 = percentile(latencies, 95)
     p99 = percentile(latencies, 99)
+
+    # Calculate throughput: total messages / total seconds
+    throughput = 0
+    if times:
+        duration = (max(times) - min(times)).total_seconds()
+        if duration > 0:
+            throughput = count / duration
 
     result = (
         f"==== {filename} ====\n"
@@ -50,12 +67,13 @@ for filename in os.listdir(log_dir):
         f"Std deviation:    {std_latency*1000:.2f} ms\n"
         f"P95 latency:      {p95*1000:.2f} ms\n"
         f"P99 latency:      {p99*1000:.2f} ms\n"
+        f"Throughput:       {throughput:.2f} messages/sec\n"
         "\n"
     )
     print(result)
     output_lines.append(result)
 
-# Write results to file
+# Write results to a report file
 with open("analysis_report.txt", "w") as fout:
     fout.writelines(output_lines)
 print("Analysis results have been written to analysis_report.txt")
