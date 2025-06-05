@@ -1,0 +1,10 @@
+[C] Received | Sender: [C] | Topic: chat | Message: Hello world | Latency: 0.0305s | Lamport: 2
+[C] Received | Sender: [C] | Topic: chat | Message: Hello world | Latency: 0.0117s | Lamport: 4
+[C] Received | Sender: [C] | Topic: chat | Message: Hello world | Latency: 0.0058s | Lamport: 6
+[C] Received | Sender: [C] | Topic: chat | Message: Hello world | Latency: 0.0104s | Lamport: 8
+[C] Received | Sender: [C] | Topic: chat | Message: Hello world | Latency: 0.0086s | Lamport: 10
+[C] Received | Sender: [C] | Topic: chat | Message: Hello world | Latency: 0.0070s | Lamport: 12
+[C] Received | Sender: [C] | Topic: chat | Message: Hello world | Latency: 0.0100s | Lamport: 14
+[C] Received | Sender: [C] | Topic: chat | Message: Hello world | Latency: 0.0059s | Lamport: 16
+[C] Received | Sender: [C] | Topic: chat | Message: Hello world | Latency: 0.0059s | Lamport: 18
+[C] Received | Sender: [C] | Topic: chat | Message: Hello world | Latency: 0.0105s | Lamport: 20

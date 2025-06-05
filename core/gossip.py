@@ -10,7 +10,7 @@ class GossipAgent:
         self.node_id = node_id
         self.peers = peers
         self.node = node  # pass node for callback
-        self.seen_msgs = set()
+        self.seen_msgs = self.load_seen_msgs_from_disk(f"{node_id}_seen_msgs.log")
         self.msg_store = {}
         self.peer_unavailable = {peer: False for peer in peers}
         self.peer_addrs = peer_addrs or {}
@@ -21,6 +21,20 @@ class GossipAgent:
             ip, port = self.peer_addrs[peer_id]
             return f"{ip}:{port}"
         raise ValueError(f"No address for peer {peer_id} in peer_addrs!")
+    
+    def load_seen_msgs_from_disk(self, path="seen_msgs.log"):
+        try:
+            with open(path, "r") as f:
+                return set(line.strip() for line in f)
+        except Exception:
+            return set()
+
+    def save_seen_msg(self, msg_id, path="seen_msgs.log"):
+        try:
+            with open(path, "a") as f:
+                f.write(msg_id + "\n")
+        except Exception:
+            pass
 
     async def broadcast(self, message, fanout=3):
         msg_id = message['msg_id']
@@ -28,6 +42,7 @@ class GossipAgent:
             # print(f"[{self.node_id}] broadcast(): msg_id {msg_id} already seen.")
             return
         self.seen_msgs.add(msg_id)
+        self.save_seen_msg(msg_id, f"{self.node_id}_seen_msgs.log")
         self.msg_store[msg_id] = message
         selected = random.sample(self.peers, min(fanout, len(self.peers)))
         for peer_id in selected:
