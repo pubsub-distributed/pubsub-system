@@ -1,9 +1,9 @@
 # subscriber.py
 class Subscriber:
-    def __init__(self, node_id):
+    def __init__(self, node_id, gossip_agent):
         self.node_id = node_id
         self.topics = set()
-        self.seen_msgs = set()
+        self.gossip = gossip_agent
 
     def receive(self, msg):
         import time
@@ -11,10 +11,11 @@ class Subscriber:
         msg_id = msg_payload.get("msg_id")
         lamport = msg_payload.get("lamport")
 
-
-        if msg_id in self.seen_msgs:
+        if msg_id in self.gossip.seen_msgs:
             return
-        self.seen_msgs.add(msg_id)
+        self.gossip.seen_msgs.add(msg_id)
+        self.gossip.save_seen_msg(msg_id, f"{self.node_id}_seen_msgs.log")
+        
         publish_time = msg_payload.get("timestamp")
         if msg["topic"] in self.topics:
             now = time.time()

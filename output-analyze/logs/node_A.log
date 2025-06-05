@@ -72,3 +72,8 @@
 [A] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 0.0024s | Lamport: 3
 [A] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 0.0032s | Lamport: 4
 [A] Received | Sender: [C] | Topic: chat | Message: Nihao | Latency: 0.0037s | Lamport: 5
+[2025-06-05 04:39:42] [A] Received | Sender: [C] | Topic: chat | Message: hello from c | Latency: 0.0239s | Lamport: 1
+[2025-06-05 04:39:42] [A] Received | Sender: [C] | Topic: chat | Message: hello from c | Latency: 0.0036s | Lamport: 2
+[2025-06-05 04:39:42] [A] Received | Sender: [C] | Topic: chat | Message: hello from c | Latency: 0.0046s | Lamport: 3
+[2025-06-05 04:39:42] [A] Received | Sender: [C] | Topic: chat | Message: hello from c | Latency: 0.0023s | Lamport: 4
+[2025-06-05 04:39:42] [A] Received | Sender: [C] | Topic: chat | Message: hello from c | Latency: 0.0057s | Lamport: 5

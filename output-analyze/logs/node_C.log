@@ -50,3 +50,8 @@
 [2025-06-05 04:23:06] [C] Publishing | Topic: chat | Message: Nihao | Lamport: 3
 [2025-06-05 04:23:06] [C] Publishing | Topic: chat | Message: Nihao | Lamport: 4
 [2025-06-05 04:23:06] [C] Publishing | Topic: chat | Message: Nihao | Lamport: 5
+[2025-06-05 04:39:42] [C] Publishing | Topic: chat | Message: hello from c | Lamport: 1
+[2025-06-05 04:39:42] [C] Publishing | Topic: chat | Message: hello from c | Lamport: 2
+[2025-06-05 04:39:42] [C] Publishing | Topic: chat | Message: hello from c | Lamport: 3
+[2025-06-05 04:39:42] [C] Publishing | Topic: chat | Message: hello from c | Lamport: 4
+[2025-06-05 04:39:42] [C] Publishing | Topic: chat | Message: hello from c | Lamport: 5

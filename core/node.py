@@ -20,7 +20,7 @@ class Node:
         self.peers = [peer for peer in all_peers if peer != self.node_id]
         self.gossip = GossipAgent(node_id, self.peers, self, peer_addrs=peer_addrs)
         self.publisher = Publisher(node_id, broker, self.gossip) if is_publisher else None
-        self.subscriber = Subscriber(node_id) if is_subscriber else None
+        self.subscriber = Subscriber(node_id, self.gossip) if is_subscriber else None
         self.lamport = 0
         self.mode = mode
         self.leader_id = self.calc_leader()
@@ -103,7 +103,6 @@ class Node:
             now = time.strftime("%Y-%m-%d %H:%M:%S")
             f.write(f"[{now}] [{self.node_id}] Publishing | Topic: {topic} | Message: {message} | Lamport: {self.lamport}\n")
         print(f"[{now}] [{self.node_id}] Publishing | Topic: {topic} | Message: {message} | Lamport: {self.lamport}\n")
-        # await self.gossip.broadcast(msg)
 
         if self.mode == "gossip":
             await self.gossip.broadcast(msg)
@@ -142,21 +141,20 @@ class Node:
             msg_id = msg.get("msg_id")
             if msg_id in self.gossip.seen_msgs:
                 return
+
             self.gossip.seen_msgs.add(msg_id)
             self.gossip.save_seen_msg(msg_id, f"{self.node_id}_seen_msgs.log")
-            if msg_id not in self.subscriber.seen_msgs:
-                received_lamport = msg.get("lamport", 0)
-                self.update_lamport(received_lamport)
-                current_lamport = self.lamport
-                # print(f"[{self.node_id}] Received | Topic: {msg['topic']} | Lamport: {current_lamport} | From: {msg.get('sender')}")
+            # if msg_id not in self.gossip.seen_msgs:
 
-                msg_payload["msg_id"] = msg.get("msg_id")
-                msg_payload["sender"] = msg.get("sender")
-                msg_payload["timestamp"] = msg.get("timestamp")
-                msg_payload["lamport"] = current_lamport
-                self.subscriber.receive({"topic": msg["topic"], "content": msg_payload})
+            received_lamport = msg.get("lamport", 0)
+            self.update_lamport(received_lamport)
+            current_lamport = self.lamport
 
-            # asyncio.create_task(self.gossip.broadcast(msg))
+            msg_payload["msg_id"] = msg.get("msg_id")
+            msg_payload["sender"] = msg.get("sender")
+            msg_payload["timestamp"] = msg.get("timestamp")
+            msg_payload["lamport"] = current_lamport
+            self.subscriber.receive({"topic": msg["topic"], "content": msg_payload})
 
             if self.mode == "leader" and self.is_leader() and msg["sender"] != self.node_id:
                 print(f"[{self.node_id}] (Leader) Received message from [{msg['sender']}], forwarding to other peers.")
