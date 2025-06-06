@@ -6,32 +6,39 @@ import os
 import threading
 
 def usage():
-    print("Usage: python send_multi_sender_test_messages.py <sender1> <sender2> <topic> <message> <count>")
-    print('Example: python send_multi_sender_test_messages.py A B news "Hello world!" 10')
+    print("Usage: python send_multi_sender_test_messages.py <sender1> [<sender2> ...] <topic> <message> <count>")
+    print('Example: python send_multi_sender_test_messages.py A B C news "Hello world!" 10')
     sys.exit(1)
 
-if len(sys.argv) != 6:
+if len(sys.argv) < 5:
     usage()
 
-sender1 = sys.argv[1].upper()
-sender2 = sys.argv[2].upper()
-topic = sys.argv[3]
-message_template = sys.argv[4]
+# Parse senders (all before topic/message/count)
+senders = []
+for arg in sys.argv[1:]:
+    if len(arg) == 1 and arg.isalpha():
+        senders.append(arg.upper())
+    else:
+        break
+
+num_senders = len(senders)
+# topic/message/count are the last three args
+if len(sys.argv) != 1 + num_senders + 3:
+    usage()
+
+topic = sys.argv[1 + num_senders]
+message_template = sys.argv[2 + num_senders]
 try:
-    count = int(sys.argv[5])
+    count = int(sys.argv[3 + num_senders])
 except ValueError:
     print("Error: <count> must be an integer.")
-    usage()
-
-if len(sender1) != 1 or not sender1.isalpha() or len(sender2) != 1 or not sender2.isalpha():
-    print("Error: <sender> must be a single letter (e.g., 'A', 'B', ...).")
     usage()
 
 peers_json_path = os.path.join(os.path.dirname(__file__), "../peers.json")
 with open(peers_json_path, "r") as f:
     peers = json.load(f)
 
-for sender in [sender1, sender2]:
+for sender in senders:
     if sender not in peers:
         print(f"Error: sender '{sender}' not found in peers.json")
         sys.exit(1)
@@ -51,9 +58,10 @@ def send_messages(sender):
         except Exception as e:
             print(f"[{sender}] Error sending message {i}: {e}")
 
+# Create and start threads for each sender
 threads = [
-    threading.Thread(target=send_messages, args=(sender1,)),
-    threading.Thread(target=send_messages, args=(sender2,))
+    threading.Thread(target=send_messages, args=(sender,))
+    for sender in senders
 ]
 
 for t in threads:
@@ -61,4 +69,4 @@ for t in threads:
 for t in threads:
     t.join()
 
-print(f"All messages sent from both {sender1} and {sender2}.")
+print(f"All messages sent from: {', '.join(senders)}.")
