@@ -79,7 +79,11 @@ for filename in log_files:
     print(result)
     output_lines.append(result)
 
-# Write results to a report file
-with open("analysis_report.txt", "w") as fout:
+# Write results to a report file in ./report
+report_dir = "./reports"
+os.makedirs(report_dir, exist_ok=True)
+report_path = os.path.join(report_dir, "analysis_report.txt")
+
+with open(report_path, "w") as fout:
     fout.writelines(output_lines)
-print("Analysis results have been written to analysis_report.txt")
+print(f"Analysis results have been written to {report_path}")
