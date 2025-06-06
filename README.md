@@ -1,148 +1,359 @@
-# **Pub-Sub Distributed System**
+## **Deployment on AWS EC2**
 
-A scalable, secure, and fault-tolerant **Publish-Subscribe (Pub-Sub) system** implemented in Python. This system enables multiple distributed nodes to publish messages and subscribe to topics of interest, supporting efficient message dissemination using the gossip protocol, with dynamic subscription management and HTTP API controls.
+**To access and operate the system on your 10 EC2 instances:**
 
-## **Features**
+### **1. SSH into Each Node**
 
-- Distributed Pub-Sub across nodes
-- Gossip protocol for scalable, low-overhead dissemination (messages relayed to a random subset of peers, with duplicate suppression)
-- Due to the probabilistic nature of gossip, message delivery is highly reliable in practice but not absolutely guaranteed for each delivery (unless fanout equals network size).
-- Dynamic subscription/unsubscription at runtime (HTTP API)
-- Secure inter-node messaging with symmetric (AES) or asymmetric cryptography
-- Fault-tolerant (handles node failures/network partitions)
-- HTTP REST endpoints for easy control
-- Dockerized for simple multi-node deployment
+Use your SSH private key ~/.ssh/pubsub-key.pem and the public IP for each node:
 
-⚠️ Due to the randomized nature of gossip, a message may take several rounds to reach all subscribers, especially in larger clusters.
+```
+# Example for node A
+ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.217.2.75
+
+# Example for node B
+ssh -i ~/.ssh/pubsub-key.pem ubuntu@3.18.108.83
+
+# ...and so on for each node:
+# C: 18.217.202.61
+# D: 18.116.237.205
+# E: 18.191.191.34
+# F: 18.224.199.139
+# G: 18.217.69.68
+# H: 18.217.200.15
+# I: 3.19.143.26
+# J: 18.222.156.181
+```
+
+### **2. Node Startup Example**
+
+Once you are inside a node (e.g. after ssh), run:
+
+```
+cd ~/pubsub-system
+source venv/bin/activate
+python3 start_node.py --node_id A --port 8000 --peer_addrs_config peers.json
+```
+
+- Change --node_id and --port according to the node (see your mapping in peers.json).
+
+### **3. Example peers.json**
+
+All nodes must have the same peers.json, e.g.:
+
+```
+{
+  "A": ["18.217.2.75", 8000],
+  "B": ["3.18.108.83", 8001],
+  "C": ["18.217.202.61", 8002],
+  "D": ["18.116.237.205", 8003],
+  "E": ["18.191.191.34", 8004],
+  "F": ["18.224.199.139", 8005],
+  "G": ["18.217.69.68", 8006],
+  "H": ["18.217.200.15", 8007],
+  "I": ["3.19.143.26", 8008],
+  "J": ["18.222.156.181", 8009]
+}
+```
+
+### **4. Summary Table (for quick copy-paste)**
+
+| **Node** | **Public IP** | **SSH Command** | **Node ID** | **Port** |
+| --- | --- | --- | --- | --- |
+| A | 18.217.2.75 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.217.2.75 | A | 8000 |
+| B | 3.18.108.83 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@3.18.108.83 | B | 8001 |
+| C | 18.217.202.61 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.217.202.61 | C | 8002 |
+| D | 18.116.237.205 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.116.237.205 | D | 8003 |
+| E | 18.191.191.34 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.191.191.34 | E | 8004 |
+| F | 18.224.199.139 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.224.199.139 | F | 8005 |
+| G | 18.217.69.68 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.217.69.68 | G | 8006 |
+| H | 18.217.200.15 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.217.200.15 | H | 8007 |
+| I | 3.19.143.26 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@3.19.143.26 | I | 8008 |
+| J | 18.222.156.181 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.222.156.181 | J | 8009 |
 
 ---
 
-## **Quick Start**
+## **Using Python Scripts in the scripts/**
 
-### **Prerequisites**
+This project provides several Python utility scripts to manage, test, and analyze the Pub/Sub system.
 
-- [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
-- (Optional) Python 3.8+ if running show_subscribers.py locally
+**You must run these scripts directly on an AWS node** (not on your local machine).
 
-### **1. Clone the Repository**
+### **Steps to Run a Script on an AWS Node**
 
-```
-git clone git@github.com:pubsub-distributed/pubsub-system.git
-cd pubsub-system
-```
-
-### **2. Build and Launch Nodes**
+1. **Open a new terminal window (tab).**
+2. **Login to the target AWS node via SSH:**
 
 ```
-docker-compose up --build
+ssh -i ~/.ssh/pubsub-key.pem ubuntu@<NODE_PUBLIC_IP>
 ```
 
-This starts nodes A/B/C/D/E/F with REST APIs on ports 8000–8005.
-
-### **3. Interact via HTTP API**
-
-**Subscribe a node to a topic:**
+1. Replace <NODE_PUBLIC_IP> with one of:
 
 ```
-curl -X POST -H "Content-Type: application/json" \
-  -d '{"topic": "news"}' \
-  http://localhost:8000/subscribe
+18.217.2.75
+3.18.108.83
+18.217.202.61
+18.116.237.205
+18.191.191.34
+18.224.199.139
+18.217.69.68
+18.217.200.15
+3.19.143.26
+18.222.156.181
 ```
 
-**Publish a message:**
+1. **Activate your Python virtual environment:**
 
 ```
-curl -X POST -H "Content-Type: application/json" \
-  -d '{"topic": "news", "message": "Hello from node A!"}' \
-  http://localhost:8000/publish
+cd ./pubsub-system
+source venv/bin/activate
+cd ./scripts
 ```
 
-**Check node subscription status:**
+1. **Now, run your desired script as shown below.**
+
+---
+
+### **Overview of Available Scripts**
+
+### **send_test_messages.py**
+
+Send a batch of test messages from a specific node for a given topic.
+
+**Usage:**
 
 ```
-curl http://localhost:8000/status
+python send_test_messages.py <SENDER> <TOPIC> <MESSAGE> <COUNT>
 ```
 
-> Change the port to 8001, 8002, etc., to interact with other nodes.
+**Example:**
+
+```
+python send_test_messages.py A news 'Hello world!' 10
+```
+
+---
+
+### **concurrent_test.py**
+
+Simulate concurrent publishers by sending messages from multiple nodes at once.
+
+**Usage:**
+
+```
+python concurrent_test.py <SENDER1> <SENDER2> ... <TOPIC> <MESSAGE> <COUNT>
+```
+
+**Example (send from A and B concurrently):**
+
+```
+python concurrent_test.py A B news 'Test message' 10
+```
+
+- You can add more senders for more concurrency:
+    
+    python concurrent_test.py A B C D news ‘Hi’ 10
+    
+
+---
+
+### **show_subscribers.py**
+
+Display the current subscribers for each topic
+
+**Usage:**
+
+```
+python show_subscribers.py
+```
+
+---
+
+### **subscribe_topic.py**
+
+Subscribe a node to a topic.
+
+**Usage:**
+
+```
+python subscribe_topic.py <NODE_ID> <TOPIC>
+```
+
+---
+
+### **unsubscribe_topic.py**
+
+Unsubscribe a node from a topic.
+
+**Usage:**
+
+```
+python unsubscribe_topic.py <NODE_ID> <TOPIC>
+```
+
+---
+
+### **switch_pubsub_mode.py**
+
+Switch the publish/subscribe mode (e.g., between leader and gossip mode) for a node.
+
+**Usage:**
+
+```
+python switch_pubsub_mode.py <MODE>
+```
+
+**Example:**
+
+```
+python switch_pubsub_mode.py gossip
+python switch_pubsub_mode.py leader
+```
+
+---
+
+> Note:
 > 
 
-### **4. Testing and Automation Scripts**
+> Make sure to activate the venv each time you log in, or open a new SSH session!
+> 
 
-**All scripts are in the scripts/ directory for convenience!**
+---
 
-| **Script** | **Description** |
+# **Output Analysis & Management Tools -** output-analyze **— Usage Guide**
+
+## **Setup Python Environment**
+
+> You must use a Python virtual environment before running the tools.
+> 
+
+> You must have the correct SSH private key (~/.ssh/pubsub-key.pem) on your local machine, with proper permissions, to access all AWS nodes.
+> 
+
+```
+cd output-analyze
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+## **2.**
+
+## **Cleanup All Nodes**
+
+> Cleans all logs and subscription files on every node.
+> 
+
+> Run this before each new test to ensure a fresh start.
+> 
+
+```
+bash cleanup_all_nodes.sh
+```
+
+or (after making the script executable):
+
+```
+chmod +x cleanup_all_nodes.sh
+./cleanup_all_nodes.sh
+```
+
+---
+
+## **Exit (Stop) All Nodes**
+
+> Gracefully stops all running nodes (calls pkill on each AWS instance).
+> 
+
+```
+bash exit_all_nodes.sh
+```
+
+or
+
+```
+chmod +x exit_all_nodes.sh
+./exit_all_nodes.sh
+```
+
+---
+
+## **Fetch Logs and Subscription Files**
+
+> Collects the latest logs and subscription info from all remote nodes and saves them locally to ./logs and ./subs.
+> 
+
+```
+bash fetch_logs_and_subs.sh
+```
+
+or
+
+```
+chmod +x fetch_logs_and_subs.sh
+./fetch_logs_and_subs.sh
+```
+
+---
+
+**Tip:**
+
+If you want to run a shell script directly with ./script_name.sh, you need to give it executable permission first:
+
+```
+chmod +x script_name.sh
+```
+
+---
+
+## **5.**
+
+## **Analyze Message Delivery Correctness**
+
+> Compares sender logs and receiver logs, based on actual topic subscriptions. Outputs a detailed report for each topic and node.
+> 
+
+```
+python check-message.py
+```
+
+- Output: check-message-report.txt in output-analyze/ reports
+- **Purpose:** Find missing, duplicated, and correctly received messages per topic/subscriber.
+
+---
+
+## **6.**
+
+## **Analyze Latency and Throughput**
+
+> Evaluates the performance of your system (average latency, throughput, and percentiles).
+> 
+
+```
+python analyze_logs.py
+```
+
+- Output: analysis_report.txt in output-analyze/ reports
+- **Purpose:** Understand delay and performance under various configurations.
+
+---
+
+## **Notes**
+
+- You must have the correct SSH private key (~/.ssh/pubsub-key.pem) on your local machine, with proper permissions, to access all AWS nodes.
+- All scripts assume ubuntu user on the nodes.
+- Make sure all AWS instances are running before executing these tools.
+- Run scripts from the output-analyze directory for correct relative paths.
+
+---
+
+## **Script/Tool Purpose Summary**
+
+| **Script/File** | **Description** |
 | --- | --- |
-| scripts/show_subscribers.py | List all topics and nodes subscribed to them across the cluster |
-| scripts/subscribe_topic.py | Programmatically subscribe a node to a topic |
-| scripts/unsubscribe_topic.py | Programmatically unsubscribe a node from a topic |
-| scripts/send_test_messages.py | Send many messages (for throughput/latency testing) |
-| scripts/analyze_latency.py | Analyze log files and summarize message delivery latency |
-
-**Example usage:**
-
-```
-python scripts/show_subscribers.py
-python scripts/subscribe_topic.py <node_letter> <topic>
-python scripts/unsubscribe_topic.py <node_letter> <topic>
-python scripts/send_test_messages.py <sender> <topic> <message> <count>
-python scripts/analyze_latency.py
-```
-
----
-
-**Example Output**
-
-```
-python scripts/show_subscribers.py
-
-Topic -> Nodes
-news: ['A', 'C', 'D']
-chat: ['A', 'B']
-sports: ['B', 'D']
-```
-
----
-
-### **5. HTTP API Endpoints**
-
-| **Endpoint** | **Method** | **Description** | **Example Payload** |
-| --- | --- | --- | --- |
-| /publish | POST | Publish a message to a topic | { "topic": "news", "message": "..." } |
-| /subscribe | POST | Subscribe the node to a topic | { "topic": "news" } |
-| /unsubscribe | POST | Unsubscribe the node from a topic | { "topic": "news" } |
-| /status | GET | Query node’s current subscriptions |  |
-
----
-
-### **6. Configuration**
-
-- Edit docker-compose.yml to set node IDs and ALL_PEERS.
-- Each node exposes its API at a different host port (8000, 8001, …).
-
----
-
-### **7. Code Overview**
-
-- core/node.py – Node logic, HTTP API, subscription management
-- core/gossip.py – Gossip protocol logic
-- core/grpc_server.py – gRPC server for node-to-node comms
-- core/publisher.py, core/subscriber.py – Pub/Sub business logic
-- security/crypto_utils.py – Cryptography utilities
-- scripts/show_subscribers.py – Lists topics and their subscribers across all nodes
-- scripts/subscribe_topic.py / unsubscribe_topic.py – Manage topic subscriptions from script
-- scripts/send_test_messages.py – Automated publish message testing
-- scripts/analyze_latency.py – Latency/performance analysis tools
-
----
-
-### **8. Extending & Testing**
-
-- Add more nodes by editing docker-compose.yml.
-- Use any HTTP client to interact with the system.
-- Use provided test scripts for cluster introspection and benchmarking.
-
----
-
-### **9. License**
-
-MIT License
+| cleanup_all_nodes.sh | Cleans all logs and subscription files from all nodes |
+| exit_all_nodes.sh | Remotely terminates all node processes |
+| fetch_logs_and_subs.sh | Downloads all node logs and subscriptions to local folders |
+| analyze_logs.py | Analyzes logs for latency/throughput, outputs performance |
+| check-message.py | Checks message correctness, detects lost/duplicate per topic |
+| requirements.txt | Python dependencies for analysis tools |
