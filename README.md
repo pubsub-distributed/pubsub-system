@@ -102,20 +102,15 @@ cd scripts
 python send_test_messages.py <SENDER> <TOPIC> <MESSAGE> <COUNT>
 ```
 
-- 
 - **concurrent_test.py** — Simulate multiple concurrent senders.
 
 ```
 python concurrent_test.py <SENDER1> <SENDER2> ... <TOPIC> <MESSAGE> <COUNT>
 ```
 
-- 
 - **subscribe_topic.py / unsubscribe_topic.py / show_subscribers.py / switch_pubsub_mode.py**
-    
-    See in-script help for usage details.
-    
 
-> Tip:
+> Tip: See in-script help for usage details.
 > 
 
 ---
@@ -140,7 +135,6 @@ bash cleanup_all_nodes.sh
 # Or, make executable: chmod +x cleanup_all_nodes.sh && ./cleanup_all_nodes.sh
 ```
 
-- 
 - **exit_all_nodes.sh**:
     
     Gracefully stops all remote nodes.
@@ -150,7 +144,6 @@ bash cleanup_all_nodes.sh
 bash exit_all_nodes.sh
 ```
 
-- 
 - **fetch_logs_and_subs.sh**:
     
     Fetches all logs/subscription files from every node via SSH.
@@ -160,7 +153,6 @@ bash exit_all_nodes.sh
 bash fetch_logs_and_subs.sh
 ```
 
-- 
 - **check-message.py**:
     
     Compares sender and receiver logs, validates delivery, outputs detailed correctness report.
@@ -170,7 +162,6 @@ bash fetch_logs_and_subs.sh
 python check-message.py
 ```
 
-- 
 - **analyze_logs.py**:
     
     Analyzes system performance (latency/throughput).
