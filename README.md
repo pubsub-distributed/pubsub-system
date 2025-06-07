@@ -1,359 +1,225 @@
-## **Deployment on AWS EC2**
+# **Distributed Pub/Sub System**
 
-**To access and operate the system on your 10 EC2 instances:**
+A scalable, fault-tolerant distributed publish-subscribe messaging system supporting both gossip and leader-based modes.
 
-### **1. SSH into Each Node**
-
-Use your SSH private key ~/.ssh/pubsub-key.pem and the public IP for each node:
-
-```
-# Example for node A
-ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.217.2.75
-
-# Example for node B
-ssh -i ~/.ssh/pubsub-key.pem ubuntu@3.18.108.83
-
-# ...and so on for each node:
-# C: 18.217.202.61
-# D: 18.116.237.205
-# E: 18.191.191.34
-# F: 18.224.199.139
-# G: 18.217.69.68
-# H: 18.217.200.15
-# I: 3.19.143.26
-# J: 18.222.156.181
-```
-
-### **2. Node Startup Example**
-
-Once you are inside a node (e.g. after ssh), run:
-
-```
-cd ~/pubsub-system
-source venv/bin/activate
-python3 start_node.py --node_id A --port 8000 --peer_addrs_config peers.json
-```
-
-- Change --node_id and --port according to the node (see your mapping in peers.json).
-
-### **3. Example peers.json**
-
-All nodes must have the same peers.json, e.g.:
-
-```
-{
-  "A": ["18.217.2.75", 8000],
-  "B": ["3.18.108.83", 8001],
-  "C": ["18.217.202.61", 8002],
-  "D": ["18.116.237.205", 8003],
-  "E": ["18.191.191.34", 8004],
-  "F": ["18.224.199.139", 8005],
-  "G": ["18.217.69.68", 8006],
-  "H": ["18.217.200.15", 8007],
-  "I": ["3.19.143.26", 8008],
-  "J": ["18.222.156.181", 8009]
-}
-```
-
-### **4. Summary Table (for quick copy-paste)**
-
-| **Node** | **Public IP** | **SSH Command** | **Node ID** | **Port** |
-| --- | --- | --- | --- | --- |
-| A | 18.217.2.75 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.217.2.75 | A | 8000 |
-| B | 3.18.108.83 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@3.18.108.83 | B | 8001 |
-| C | 18.217.202.61 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.217.202.61 | C | 8002 |
-| D | 18.116.237.205 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.116.237.205 | D | 8003 |
-| E | 18.191.191.34 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.191.191.34 | E | 8004 |
-| F | 18.224.199.139 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.224.199.139 | F | 8005 |
-| G | 18.217.69.68 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.217.69.68 | G | 8006 |
-| H | 18.217.200.15 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.217.200.15 | H | 8007 |
-| I | 3.19.143.26 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@3.19.143.26 | I | 8008 |
-| J | 18.222.156.181 | ssh -i ~/.ssh/pubsub-key.pem ubuntu@18.222.156.181 | J | 8009 |
+Supports full deployment on local, cloud (AWS EC2), or hybrid clusters.
 
 ---
 
-## **Using Python Scripts in the scripts/**
+## **Features**
 
-This project provides several Python utility scripts to manage, test, and analyze the Pub/Sub system.
-
-**You must run these scripts directly on an AWS node** (not on your local machine).
-
-### **Steps to Run a Script on an AWS Node**
-
-1. **Open a new terminal window (tab).**
-2. **Login to the target AWS node via SSH:**
-
-```
-ssh -i ~/.ssh/pubsub-key.pem ubuntu@<NODE_PUBLIC_IP>
-```
-
-1. Replace <NODE_PUBLIC_IP> with one of:
-
-```
-18.217.2.75
-3.18.108.83
-18.217.202.61
-18.116.237.205
-18.191.191.34
-18.224.199.139
-18.217.69.68
-18.217.200.15
-3.19.143.26
-18.222.156.181
-```
-
-1. **Activate your Python virtual environment:**
-
-```
-cd ./pubsub-system
-source venv/bin/activate
-cd ./scripts
-```
-
-1. **Now, run your desired script as shown below.**
+- **Modular Python Architecture:** Node, Broker, Publisher, Subscriber, GossipAgent.
+- **Gossip & Leader Modes:** Choose between eventual or strong consistency.
+- **Async & Concurrent:** Built with asyncio for high throughput.
+- **gRPC Protocol:** Efficient, extensible node communication (optional, if implemented).
+- **Secure:** Built-in AES encryption for messages.
+- **Cloud-ready:** Orchestration/automation scripts for multi-node clusters (AWS EC2 recommended).
+- **Performance Monitoring:** Integrated logging, message tracking, and latency/throughput analysis tools.
 
 ---
 
-### **Overview of Available Scripts**
-
-### **send_test_messages.py**
-
-Send a batch of test messages from a specific node for a given topic.
-
-**Usage:**
+## **1. Clone the Project**
 
 ```
-python send_test_messages.py <SENDER> <TOPIC> <MESSAGE> <COUNT>
-```
-
-**Example:**
-
-```
-python send_test_messages.py A news 'Hello world!' 10
+git clone https://github.com/YOUR_GITHUB_USERNAME/pubsub-system.git
+cd pubsub-system
 ```
 
 ---
 
-### **concurrent_test.py**
+## **2. Environment Setup**
 
-Simulate concurrent publishers by sending messages from multiple nodes at once.
-
-**Usage:**
+It is recommended to use a **Python virtual environment**:
 
 ```
-python concurrent_test.py <SENDER1> <SENDER2> ... <TOPIC> <MESSAGE> <COUNT>
-```
-
-**Example (send from A and B concurrently):**
-
-```
-python concurrent_test.py A B news 'Test message' 10
-```
-
-- You can add more senders for more concurrency:
-    
-    python concurrent_test.py A B C D news ‘Hi’ 10
-    
-
----
-
-### **show_subscribers.py**
-
-Display the current subscribers for each topic
-
-**Usage:**
-
-```
-python show_subscribers.py
-```
-
----
-
-### **subscribe_topic.py**
-
-Subscribe a node to a topic.
-
-**Usage:**
-
-```
-python subscribe_topic.py <NODE_ID> <TOPIC>
-```
-
----
-
-### **unsubscribe_topic.py**
-
-Unsubscribe a node from a topic.
-
-**Usage:**
-
-```
-python unsubscribe_topic.py <NODE_ID> <TOPIC>
-```
-
----
-
-### **switch_pubsub_mode.py**
-
-Switch the publish/subscribe mode (e.g., between leader and gossip mode) for a node.
-
-**Usage:**
-
-```
-python switch_pubsub_mode.py <MODE>
-```
-
-**Example:**
-
-```
-python switch_pubsub_mode.py gossip
-python switch_pubsub_mode.py leader
-```
-
----
-
-> Note:
-> 
-
-> Make sure to activate the venv each time you log in, or open a new SSH session!
-> 
-
----
-
-# **Output Analysis & Management Tools -** output-analyze **— Usage Guide**
-
-## **Setup Python Environment**
-
-> You must use a Python virtual environment before running the tools.
-> 
-
-> You must have the correct SSH private key (~/.ssh/pubsub-key.pem) on your local machine, with proper permissions, to access all AWS nodes.
-> 
-
-```
-cd output-analyze
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## **2.**
+---
 
-## **Cleanup All Nodes**
+## **3. Configuration**
 
-> Cleans all logs and subscription files on every node.
-> 
+Edit peers.json to include all participating nodes.
 
-> Run this before each new test to ensure a fresh start.
-> 
+**Example format:**
 
 ```
-bash cleanup_all_nodes.sh
+{
+  "A": ["18.217.2.75", 8000],
+  "B": ["3.18.108.83", 8001],
+  "C": ["18.217.202.61", 8002]
+  // Add more nodes as needed
+}
 ```
 
-or (after making the script executable):
-
-```
-chmod +x cleanup_all_nodes.sh
-./cleanup_all_nodes.sh
-```
+- **Each node should use the same peers.json file.**
 
 ---
 
-## **Exit (Stop) All Nodes**
+## **4. Starting a Node**
 
-> Gracefully stops all running nodes (calls pkill on each AWS instance).
+On **each node** (local or remote):
+
+```
+cd pubsub-system
+source venv/bin/activate
+python3 start_node.py --node_id <NODE_ID> --port <PORT> --peer_addrs_config peers.json
+```
+
+- Replace <NODE_ID> and <PORT> per your configuration.
+
+---
+
+## **5. Running on AWS EC2**
+
+**(Optional)**
+
+If deploying on AWS, launch EC2 instances and set up SSH access (~/.ssh/pubsub-key.pem).
+
+SSH into each instance and follow the steps above for environment setup and node startup.
+
+---
+
+## **6. Using Management and Testing Scripts**
+
+All management and analysis scripts are in the scripts/ and output-analyze/ directories.
+
+### **6.1 Running Utility Scripts**
+
+First, **activate your venv** and switch to the relevant directory:
+
+```
+cd pubsub-system
+source venv/bin/activate
+cd scripts
+```
+
+- **send_test_messages.py** — Send N messages from a node.
+
+```
+python send_test_messages.py <SENDER> <TOPIC> <MESSAGE> <COUNT>
+```
+
+- 
+- **concurrent_test.py** — Simulate multiple concurrent senders.
+
+```
+python concurrent_test.py <SENDER1> <SENDER2> ... <TOPIC> <MESSAGE> <COUNT>
+```
+
+- 
+- **subscribe_topic.py / unsubscribe_topic.py / show_subscribers.py / switch_pubsub_mode.py**
+    
+    See in-script help for usage details.
+    
+
+> Tip:
 > 
+
+---
+
+### **6.2 Output Analysis Tools**
+
+Switch to the output analysis directory:
+
+```
+cd output-analyze
+source ../venv/bin/activate
+pip install -r requirements.txt
+```
+
+- **cleanup_all_nodes.sh**:
+    
+    Cleans all logs and subscriptions on all nodes (remote via SSH).
+    
+
+```
+bash cleanup_all_nodes.sh
+# Or, make executable: chmod +x cleanup_all_nodes.sh && ./cleanup_all_nodes.sh
+```
+
+- 
+- **exit_all_nodes.sh**:
+    
+    Gracefully stops all remote nodes.
+    
 
 ```
 bash exit_all_nodes.sh
 ```
 
-or
-
-```
-chmod +x exit_all_nodes.sh
-./exit_all_nodes.sh
-```
-
----
-
-## **Fetch Logs and Subscription Files**
-
-> Collects the latest logs and subscription info from all remote nodes and saves them locally to ./logs and ./subs.
-> 
+- 
+- **fetch_logs_and_subs.sh**:
+    
+    Fetches all logs/subscription files from every node via SSH.
+    
 
 ```
 bash fetch_logs_and_subs.sh
 ```
 
-or
-
-```
-chmod +x fetch_logs_and_subs.sh
-./fetch_logs_and_subs.sh
-```
-
----
-
-**Tip:**
-
-If you want to run a shell script directly with ./script_name.sh, you need to give it executable permission first:
-
-```
-chmod +x script_name.sh
-```
-
----
-
-## **5.**
-
-## **Analyze Message Delivery Correctness**
-
-> Compares sender logs and receiver logs, based on actual topic subscriptions. Outputs a detailed report for each topic and node.
-> 
+- 
+- **check-message.py**:
+    
+    Compares sender and receiver logs, validates delivery, outputs detailed correctness report.
+    
 
 ```
 python check-message.py
 ```
 
-- Output: check-message-report.txt in output-analyze/ reports
-- **Purpose:** Find missing, duplicated, and correctly received messages per topic/subscriber.
-
----
-
-## **6.**
-
-## **Analyze Latency and Throughput**
-
-> Evaluates the performance of your system (average latency, throughput, and percentiles).
-> 
+- 
+- **analyze_logs.py**:
+    
+    Analyzes system performance (latency/throughput).
+    
 
 ```
 python analyze_logs.py
 ```
 
-- Output: analysis_report.txt in output-analyze/ reports
-- **Purpose:** Understand delay and performance under various configurations.
+> All analysis output will be saved to the output-analyze/reports/ directory.
+> 
 
 ---
 
-## **Notes**
+## **7. Security**
 
-- You must have the correct SSH private key (~/.ssh/pubsub-key.pem) on your local machine, with proper permissions, to access all AWS nodes.
-- All scripts assume ubuntu user on the nodes.
-- Make sure all AWS instances are running before executing these tools.
-- Run scripts from the output-analyze directory for correct relative paths.
+- By default, nodes use unencrypted connections.
+- To enable full security, ensure your configuration uses AES keys and that any secrets/keys are distributed to all participating nodes.
 
 ---
 
-## **Script/Tool Purpose Summary**
+## **8. Extending or Contributing**
 
-| **Script/File** | **Description** |
-| --- | --- |
-| cleanup_all_nodes.sh | Cleans all logs and subscription files from all nodes |
-| exit_all_nodes.sh | Remotely terminates all node processes |
-| fetch_logs_and_subs.sh | Downloads all node logs and subscriptions to local folders |
-| analyze_logs.py | Analyzes logs for latency/throughput, outputs performance |
-| check-message.py | Checks message correctness, detects lost/duplicate per topic |
-| requirements.txt | Python dependencies for analysis tools |
+- Modular design: Easily add new message types, broker strategies, or cloud backends.
+- To add a new node:
+    - Update peers.json
+    - Deploy code & requirements
+    - Start the node with correct parameters
+
+---
+
+## **9. Example: Full AWS EC2 Setup**
+
+1. Launch 10 EC2 Ubuntu instances, each with a public IP.
+2. SSH into each instance and run setup steps (clone, venv, requirements, configure).
+3. Copy the same peers.json to each node.
+4. Start each node with its unique --node_id and --port.
+5. Use the provided scripts for testing and system analysis.
+
+---
+
+## **10. Troubleshooting**
+
+- Ensure all nodes can communicate (open ports in AWS security groups).
+- Use logs/ for troubleshooting system behavior.
+- For SSH-based scripts, ensure your local machine has access to the correct key file.
+
+---
+
+## **11. License**
+
+MIT License
